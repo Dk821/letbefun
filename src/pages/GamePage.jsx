@@ -24,23 +24,20 @@ function GameView({ meta }) {
 
   const startGame = () => {
     setStarted(true)
-    ;(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen)?.call(document.documentElement)?.catch?.(() => {})
   }
   const exitGame = () => {
     setStarted(false)
     setShowHelp(false)
-    if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {})
   }
 
   useEffect(() => {
     if (!started) return
     document.body.style.overflow = 'hidden'
-    const onKey = (e) => e.key === 'Escape' && !document.fullscreenElement && exitGame()
+    const onKey = (e) => e.key === 'Escape' && exitGame()
     window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
       window.removeEventListener('keydown', onKey)
-      if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {})
     }
   }, [started])
 
