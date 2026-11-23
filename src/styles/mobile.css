@@ -1,0 +1,23 @@
+/* Mobile-view overrides (phones, <640px). Loaded after index.css. */
+@media (max-width: 639px) {
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { overflow-x: clip; -webkit-tap-highlight-color: transparent; }
+
+  /* keep content clear of notches / home indicator */
+  main { padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+
+  /* two compact cards per row */
+  .feat-card { border-radius: 1.2rem; }
+  .feat-banner { height: 7rem; }
+  .feat-cta { padding: .45rem .75rem; font-size: .8rem; }
+  .game-chip { padding: .2rem .6rem; font-size: .7rem; }
+
+  /* comfortable touch targets */
+  .btn { min-height: 44px; }
+  .btn-sm { min-height: 40px; }
+  .chip { min-height: 36px; }
+
+  /* games: no hover lift on touch, no accidental text selection */
+  .feat-card:hover { transform: none; }
+  canvas { touch-action: none; }
+}

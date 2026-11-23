@@ -38,6 +38,8 @@ function draw(ctx, s) {
 
 export default function FlappyBird() {
   const canvas = useRef(null)
+  const box = useRef(null)
+  const [size, setSize] = useState({ w: W, h: H })
   const game = useRef(fresh())
   const [ui, setUi] = useState({ state: 'idle', score: 0 })
   const [best, submit] = useBestScore('flappy-bird')
@@ -61,6 +63,18 @@ export default function FlappyBird() {
       e.preventDefault()
       flap()
     }
+  }, [])
+
+  useEffect(() => {
+    const fit = () => {
+      const r = box.current.getBoundingClientRect()
+      const scale = Math.min(r.width / W, r.height / H)
+      if (scale > 0) setSize({ w: Math.floor(W * scale), h: Math.floor(H * scale) })
+    }
+    fit()
+    const ro = new ResizeObserver(fit)
+    ro.observe(box.current)
+    return () => ro.disconnect()
   }, [])
 
   useEffect(() => {
@@ -98,8 +112,8 @@ export default function FlappyBird() {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="mx-auto h-full min-h-[28rem]">
-      <div className="relative mx-auto h-full max-h-full w-auto" style={{ aspectRatio: `${W} / ${H}` }}>
+    <div ref={box} className="grid h-full min-h-[24rem] w-full place-items-center">
+      <div className="relative" style={{ width: size.w, height: size.h }}>
         <canvas ref={canvas} width={W} height={H} onPointerDown={flap} className="h-full w-full touch-none rounded-2xl border-2 border-ink" aria-label="Flappy bird game" />
         <div className="pointer-events-none absolute inset-x-3 top-3 flex items-start justify-between" aria-live="polite">
           <div className="rounded-xl bg-black/35 px-3 py-1.5 text-white backdrop-blur">
