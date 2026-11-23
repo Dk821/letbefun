@@ -36,15 +36,6 @@ export default function Home() {
             <Link to="/explore" className="btn btn-primary !px-6 !py-3"><Play size={16} className="fill-current" aria-hidden /> Explore all games <ArrowRight size={16} aria-hidden /></Link>
             <Link to="/games/reaction-test" className="btn !px-6 !py-3"><Zap size={16} className="fill-[var(--brand)] text-[var(--brand)]" aria-hidden /> Quick Reaction test</Link>
           </div>
-          <div className="mt-10 flex flex-wrap gap-3 text-2xl">
-            {GAMES.map((g, i) => (
-              <motion.div key={g.slug} initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 + i * 0.03 }}>
-                <Link to={`/games/${g.slug}`} aria-label={g.title} title={g.title} className="grid size-12 place-items-center rounded-2xl border border-line bg-card transition hover:-translate-y-1 hover:border-[var(--brand)]">
-                  <span aria-hidden>{g.emoji}</span>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
         </div>
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">
           <div className="hero-art">
