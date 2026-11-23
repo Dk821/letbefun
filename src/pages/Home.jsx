@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="glow-bg grid items-center gap-8 pb-10 pt-12 sm:pt-20 lg:grid-cols-[1.15fr_1fr]">
+      <section className="glow-bg grid grid-cols-[minmax(0,1fr)] items-center gap-8 pb-10 pt-12 sm:pt-20 lg:grid-cols-[1.15fr_1fr]">
         <div>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-card/60 px-4 py-2 text-xs font-bold uppercase tracking-widest">
             <Zap size={16} className="fill-[var(--brand)] text-[var(--brand)]" aria-hidden /> A small box of curious things
@@ -47,7 +47,7 @@ export default function Home() {
 
       <section className="relative mt-16" aria-labelledby="featured-h">
         <i className="deco-sq right-[30%] top-6" aria-hidden />
-        <div className="mb-8 flex items-center justify-between gap-4">
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex gap-4">
             <span className="section-bar" aria-hidden />
             <div>
@@ -57,13 +57,13 @@ export default function Home() {
           </div>
           <Link to="/explore" className="btn btn-outline-violet !px-5">See all <ArrowRight size={16} aria-hidden /></Link>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
           {featured.map((g, i) => <GameCard key={g.slug} game={g} index={i} />)}
         </div>
       </section>
 
       <Section title="Latest experiments">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {latest.map((g, i) => <GameCard key={g.slug} game={g} index={i} />)}
         </div>
       </Section>

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { Stat } from '../../components/ui.jsx'
 import { useBestScore, useKey, useSound } from '../../hooks/index.js'
 
 const W = 320, H = 480, G = 0.45, FLAP = -7.2, GAP = 130, PW = 52, BX = 80
@@ -99,13 +98,19 @@ export default function FlappyBird() {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="mx-auto max-w-sm">
-      <div className="mb-3 grid grid-cols-2 gap-3">
-        <Stat label="Score" value={ui.score} />
-        <Stat label="Best" value={best ?? '—'} />
-      </div>
-      <div className="relative">
-        <canvas ref={canvas} width={W} height={H} onPointerDown={flap} className="w-full touch-none rounded-2xl border-2 border-ink" aria-label="Flappy bird game" />
+    <div className="mx-auto h-full min-h-[28rem]">
+      <div className="relative mx-auto h-full max-h-full w-auto" style={{ aspectRatio: `${W} / ${H}` }}>
+        <canvas ref={canvas} width={W} height={H} onPointerDown={flap} className="h-full w-full touch-none rounded-2xl border-2 border-ink" aria-label="Flappy bird game" />
+        <div className="pointer-events-none absolute inset-x-3 top-3 flex items-start justify-between" aria-live="polite">
+          <div className="rounded-xl bg-black/35 px-3 py-1.5 text-white backdrop-blur">
+            <div className="text-[10px] font-semibold uppercase tracking-wider opacity-80">Score</div>
+            <div className="font-mono text-xl font-bold leading-tight">{ui.score}</div>
+          </div>
+          <div className="rounded-xl bg-black/35 px-3 py-1.5 text-right text-white backdrop-blur">
+            <div className="text-[10px] font-semibold uppercase tracking-wider opacity-80">Best</div>
+            <div className="font-mono text-xl font-bold leading-tight">{best ?? '—'}</div>
+          </div>
+        </div>
         {ui.state !== 'run' && (
           <div className="pointer-events-none absolute inset-x-0 top-1/3 text-center">
             <p className="font-display text-3xl font-extrabold text-white drop-shadow-lg">{ui.state === 'over' ? `Game over · ${ui.score}` : 'Tap to flap'}</p>

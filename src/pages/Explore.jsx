@@ -58,7 +58,7 @@ export default function Explore() {
       <p className="sr-only" role="status">{list.length} games found</p>
       <h2 className="sr-only">Games</h2>
       {list.length ? (
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
           {list.map((g, i) => <GameCard key={g.slug} game={g} index={i} />)}
         </div>
       ) : (

@@ -44,6 +44,7 @@
 
 html { scroll-behavior: smooth; }
 body {
+  overflow-x: clip;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);

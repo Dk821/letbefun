@@ -24,7 +24,7 @@ function GameView({ meta }) {
 
   const startGame = () => {
     setStarted(true)
-    document.documentElement.requestFullscreen?.().catch(() => {})
+    ;(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen)?.call(document.documentElement)?.catch?.(() => {})
   }
   const exitGame = () => {
     setStarted(false)
@@ -51,7 +51,7 @@ function GameView({ meta }) {
   const related = [
     ...GAMES.filter((g) => g.category === meta.category && g.slug !== meta.slug),
     ...GAMES.filter((g) => g.category !== meta.category && g.slug !== meta.slug),
-  ].slice(0, 3)
+  ].slice(0, 4)
 
   return (
     <div style={{ '--game': meta.color }} className="pt-6">
@@ -88,17 +88,17 @@ function GameView({ meta }) {
             </button>
           </div>
         ) : (
-          <div className="fixed inset-0 z-50 flex flex-col bg-bg" role="dialog" aria-label={meta.title}>
-            <div className="flex flex-wrap items-center gap-2 border-b border-line px-4 py-2">
-              <span className="mr-auto flex items-center gap-2 font-bold"><span aria-hidden>{meta.emoji}</span> {meta.title}</span>
+          <div className="fixed inset-0 z-50 flex h-dvh w-screen flex-col bg-bg" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }} role="dialog" aria-label={meta.title}>
+            <div className="flex shrink-0 items-center gap-2 border-b border-line px-3 py-2 sm:px-4">
+              <span className="mr-auto flex min-w-0 items-center gap-2 truncate font-bold"><span aria-hidden>{meta.emoji}</span> {meta.title}</span>
               <button className="btn btn-sm" onClick={() => setRunKey((k) => k + 1)}>
-                <RotateCcw size={14} aria-hidden /> Restart
+                <RotateCcw size={14} aria-hidden /> <span className="max-sm:sr-only">Restart</span>
               </button>
               <button className="btn btn-sm btn-ghost" aria-expanded={showHelp} onClick={() => setShowHelp((s) => !s)}>
-                <HelpCircle size={14} aria-hidden /> How to play
+                <HelpCircle size={14} aria-hidden /> <span className="max-sm:sr-only">How to play</span>
               </button>
               <button className="btn btn-sm btn-ghost" onClick={exitGame} autoFocus>
-                <X size={14} aria-hidden /> Exit
+                <X size={14} aria-hidden /> <span className="max-sm:sr-only">Exit</span>
               </button>
             </div>
             {showHelp && (
@@ -108,7 +108,7 @@ function GameView({ meta }) {
                 ))}
               </ul>
             )}
-            <div className="mx-auto min-h-0 w-full max-w-6xl flex-1 overflow-auto p-4">
+            <div className="mx-auto min-h-0 w-full max-w-6xl flex-1 overflow-auto p-2 sm:p-4">
               <ErrorBoundary>
                 <Suspense fallback={<Loader label={`Loading ${meta.title}…`} />}>
                   <Game key={runKey} />
@@ -121,9 +121,9 @@ function GameView({ meta }) {
 
       <section className="mt-16" aria-labelledby="related">
         <h2 id="related" className="mb-4 text-xl font-bold">Try these next</h2>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
           {related.map((g, i) => (
-            <GameCard key={g.slug} game={g} index={i} />
+            <div key={g.slug} className={i === 3 ? 'sm:hidden' : ''}><GameCard game={g} index={i} /></div>
           ))}
         </div>
       </section>

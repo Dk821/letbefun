@@ -103,15 +103,15 @@ export function GameCard({ game, index = 0 }) {
         className="feat-card group flex h-full flex-col overflow-hidden rounded-[1.6rem]"
         aria-label={`${game.title}: ${game.tagline}`}
       >
-        <div className="feat-banner relative grid h-40 place-items-center overflow-hidden">
-          <span className="feat-emoji text-7xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden>{game.emoji}</span>
-          <span className="game-chip feat-chip absolute left-4 top-4">{game.category}</span>
-          <span className="feat-time absolute right-4 top-4 inline-flex items-center gap-1.5"><Clock size={13} aria-hidden /> {game.minutes} min</span>
+        <div className="feat-banner relative grid h-28 place-items-center sm:h-40 overflow-hidden">
+          <span className="feat-emoji text-5xl sm:text-7xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden>{game.emoji}</span>
+          <span className="game-chip feat-chip absolute left-2 top-2 sm:left-4 sm:top-4">{game.category}</span>
+          <span className="feat-time absolute right-4 top-4 inline-flex max-sm:hidden items-center gap-1.5"><Clock size={13} aria-hidden /> {game.minutes} min</span>
         </div>
-        <div className="flex flex-1 flex-col p-5">
-          <h3 className="text-xl font-extrabold leading-tight">{game.title}</h3>
-          <p className="mt-1.5 flex-1 text-[0.92rem] text-muted">{game.tagline}</p>
-          <span className="feat-cta mt-5 inline-flex items-center justify-center gap-2 self-stretch"><Play size={14} className="fill-current" aria-hidden /> Play now</span>
+        <div className="flex flex-1 flex-col p-3 sm:p-5">
+          <h3 className="text-base font-extrabold leading-tight sm:text-xl">{game.title}</h3>
+          <p className="mt-1.5 flex-1 text-[0.8rem] text-muted sm:text-[0.92rem]">{game.tagline}</p>
+          <span className="feat-cta mt-3 sm:mt-5 inline-flex items-center justify-center gap-2 self-stretch"><Play size={14} className="fill-current" aria-hidden /> Play now</span>
         </div>
       </Link>
     </motion.div>

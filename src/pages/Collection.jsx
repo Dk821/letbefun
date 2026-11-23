@@ -19,7 +19,7 @@ export default function Collection({ kind }) {
       <h1 className="text-4xl font-extrabold sm:text-5xl">{isFav ? 'Favorites' : 'Recently played'}</h1>
       <p className="mt-2 text-muted">Stored only on this device — never uploaded.</p>
       {games.length ? (
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
           {games.map((g, i) => <GameCard key={g.slug} game={g} index={i} />)}
         </div>
       ) : (
