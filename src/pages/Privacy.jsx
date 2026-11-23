@@ -14,7 +14,7 @@ export default function Privacy() {
           <li>Passwords typed into the Password Gauntlet are never stored or transmitted. Do not reuse real passwords anywhere in games.</li>
         </ul>
         <h2 className="pt-2 text-xl font-bold text-ink">Third-party services</h2>
-        <p>The only external request the site makes is loading fonts from Google Fonts, which may log your IP address as any web request does. No other third-party scripts, cookies or trackers are used. If you host a copy yourself you can self-host the fonts.</p>
+        <p>The only external request the site makes is loading fonts from Google Fonts, which may log your IP address as any web request does. The site also uses Vercel Web Analytics to count anonymous page views; it sets no cookies and does not track you across sites. No other third-party scripts, cookies or trackers are used. If you host a copy yourself you can self-host the fonts.</p>
         <h2 className="pt-2 text-xl font-bold text-ink">Your control</h2>
         <p>Open Settings to export or permanently delete everything stored by this site. Clearing your browser data does the same.</p>
       </div>
