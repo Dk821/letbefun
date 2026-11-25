@@ -11,7 +11,7 @@
       "permanent": true
     }
   ],
-  "rewrites": [{ "source": "/((?!assets/|images/|sounds/|favicon.svg|robots.txt|sitemap.xml).*)", "destination": "/index.html" }],
+    "rewrites": [{ "source": "/((?!assets/|images/|sounds/|favicon.png|favicon.svg|logo.png|robots.txt|sitemap.xml).*)", "destination": "/index.html" }],
   "headers": [
     { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
   ]
