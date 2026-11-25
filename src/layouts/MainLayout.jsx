@@ -65,10 +65,14 @@ export default function MainLayout() {
       </main>
       <footer className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>letbe<span className="brand-fun">.fun</span> — made with curiosity. Everything stays in your browser.</p>
+          <div className="space-y-1">
+            <p>letbe<span className="brand-fun">.fun</span> — made with curiosity. Everything stays in your browser.</p>
+            <p>Made by [YOUR/OWNER NAME] · <a href="[EMAIL OR URL]" className="hover:text-ink">Contact</a></p>
+          </div>
           <nav aria-label="Footer" className="flex gap-4">
             <Link to="/about" className="hover:text-ink">About</Link>
             <Link to="/privacy" className="hover:text-ink">Privacy</Link>
+            {/* TODO: Add Terms link only if a Terms page exists. */}
             <Link to="/settings" className="hover:text-ink">Settings</Link>
           </nav>
         </div>

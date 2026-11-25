@@ -32,7 +32,7 @@ export default function Explore() {
 
   return (
     <div className="pt-10">
-      <h1 className="text-4xl font-extrabold sm:text-5xl">Explore</h1>
+      <h1 id="explore-title" className="text-4xl font-extrabold sm:text-5xl">Explore</h1>
       <p className="mt-2 text-muted">{GAMES.length} experiments and counting.</p>
 
       <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -56,7 +56,7 @@ export default function Explore() {
       </div>
 
       <p className="sr-only" role="status">{list.length} games found</p>
-      <h2 className="sr-only">Games</h2>
+      <h2 id="explore-games" className="sr-only">Games</h2>
       {list.length ? (
         <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
           {list.map((g, i) => <GameCard key={g.slug} game={g} index={i} />)}

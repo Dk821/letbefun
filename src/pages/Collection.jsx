@@ -16,7 +16,7 @@ export default function Collection({ kind }) {
   const games = (isFav ? favs : recent.map((r) => r.slug)).map(getMeta).filter(Boolean)
   return (
     <div className="pt-10">
-      <h1 className="text-4xl font-extrabold sm:text-5xl">{isFav ? 'Favorites' : 'Recently played'}</h1>
+      <h1 id="collection-title" className="text-4xl font-extrabold sm:text-5xl">{isFav ? 'Favorites' : 'Recently played'}</h1>
       <p className="mt-2 text-muted">Stored only on this device — never uploaded.</p>
       {games.length ? (
         <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">

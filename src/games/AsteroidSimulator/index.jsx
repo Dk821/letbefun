@@ -109,7 +109,7 @@ export default function AsteroidSimulator() {
 function Results({ r }) {
   return (
     <div className="card p-5">
-      <h2 className="text-xl font-bold">{r.airburst ? 'It exploded in the air.' : r.ocean ? 'Ocean impact.' : 'Ground impact.'}</h2>
+      <h2 id="impact-result-title" className="text-xl font-bold">{r.airburst ? 'It exploded in the air.' : r.ocean ? 'Ocean impact.' : 'Ground impact.'}</h2>
       <p className="text-sm text-muted">
         {r.airburst ? 'Too small and fragile to survive the atmosphere intact; most energy is released as an airburst, so no crater forms.' : r.ocean ? 'The rock plunges into the sea. Expect a seabed crater and tsunami hazard (not simulated here).' : 'A crater forms in the ground and ejecta rains down.'}
       </p>

@@ -100,7 +100,7 @@ export default function ScaleOfUniverse() {
       </div>
       <p className="mt-1 text-xs text-muted">Scroll the wheel over the picture, drag the slider, or use arrow keys on it. Sizes are approximate typical or average values.</p>
 
-      <h2 className="mb-2 mt-6 text-lg font-bold">Jump to</h2>
+      <h2 id="scale-jump-to" className="mb-2 mt-6 text-lg font-bold">Jump to</h2>
       <ul className="flex flex-wrap gap-2">
         {OBJECTS.map((o) => (
           <li key={o.name}>

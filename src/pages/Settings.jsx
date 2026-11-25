@@ -29,7 +29,7 @@ export default function Settings() {
 
   return (
     <div className="mx-auto max-w-2xl pt-10">
-      <h1 className="text-4xl font-extrabold sm:text-5xl">Settings</h1>
+      <h1 id="settings-title" className="text-4xl font-extrabold sm:text-5xl">Settings</h1>
 
       <section className="card mt-8 p-6" aria-labelledby="s-theme">
         <h2 id="s-theme" className="text-lg font-bold">Theme</h2>

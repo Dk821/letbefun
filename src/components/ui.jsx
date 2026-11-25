@@ -109,7 +109,7 @@ export function GameCard({ game, index = 0 }) {
           <span className="feat-time absolute right-4 top-4 inline-flex max-sm:hidden items-center gap-1.5"><Clock size={13} aria-hidden /> {game.minutes} min</span>
         </div>
         <div className="flex flex-1 flex-col p-3 sm:p-5">
-          <h3 className="text-base font-extrabold leading-tight sm:text-xl">{game.title}</h3>
+          <h3 id={`game-card-${game.slug}`} className="text-base font-extrabold leading-tight sm:text-xl">{game.title}</h3>
           <p className="mt-1.5 flex-1 text-[0.8rem] text-muted sm:text-[0.92rem]">{game.tagline}</p>
           <span className="feat-cta mt-3 sm:mt-5 inline-flex items-center justify-center gap-2 self-stretch"><Play size={14} className="fill-current" aria-hidden /> Play now</span>
         </div>
@@ -128,11 +128,16 @@ export function Stat({ label, value, hint }) {
   )
 }
 
+function slugId(value) {
+  return String(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+}
+
 export function Section({ title, action, children }) {
+  const id = slugId(title)
   return (
-    <section className="mt-16">
+    <section className="mt-16" aria-labelledby={id}>
       <div className="mb-5 flex items-end justify-between gap-4">
-        <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
+        <h2 id={id} className="text-2xl font-bold sm:text-3xl">{title}</h2>
         {action}
       </div>
       {children}

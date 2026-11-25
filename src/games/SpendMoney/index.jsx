@@ -31,14 +31,14 @@ export default function SpendMoney() {
         {balance === 0 && <p className="mt-1 font-semibold" role="status">🎉 You spent every last dollar. Impressive and slightly worrying.</p>}
       </div>
 
-      <h2 className="sr-only">Things to buy</h2>
+      <h2 id="spend-items-title" className="sr-only">Things to buy</h2>
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {ITEMS.map((it) => {
           const n = qty[it.id] || 0
           return (
             <div key={it.id} className="card flex flex-col items-center p-4 text-center">
               <span className="text-5xl" aria-hidden>{it.emoji}</span>
-              <h3 className="mt-1 text-lg font-bold">{it.name}</h3>
+              <h3 id={`spend-item-${it.id}`} className="mt-1 text-lg font-bold">{it.name}</h3>
               <p className="font-mono text-sm text-muted">{money(it.price)}</p>
               <div className="mt-3 flex items-center gap-2">
                 <button className="btn btn-sm" disabled={n === 0} onClick={() => set(it, n - 1)} aria-label={`Sell one ${it.name}`}><Minus size={14} /></button>
@@ -62,7 +62,7 @@ export default function SpendMoney() {
       </div>
 
       <section className="card mx-auto mt-8 max-w-md p-5 font-mono text-sm" aria-label="Receipt">
-        <h2 className="mb-2 text-center font-display text-xl font-bold">Your receipt</h2>
+        <h2 id="spend-receipt-title" className="mb-2 text-center font-display text-xl font-bold">Your receipt</h2>
         {receipt.length === 0 && <p className="text-center text-muted">Nothing purchased yet.</p>}
         {receipt.map((it) => (
           <div key={it.id} className="flex justify-between border-b border-dashed border-line py-1">

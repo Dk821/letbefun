@@ -61,7 +61,7 @@ function GameView({ meta }) {
             {meta.emoji}
           </span>
           <div>
-            <h1 className="text-3xl font-extrabold sm:text-4xl">{meta.title}</h1>
+            <h1 id="game-title" className="text-3xl font-extrabold sm:text-4xl">{meta.title}</h1>
             <p className="text-muted">{meta.tagline}</p>
           </div>
         </div>
@@ -74,7 +74,7 @@ function GameView({ meta }) {
       <div className="mt-5">
         {!started ? (
           <div className="card mx-auto max-w-2xl p-6 sm:p-8">
-            <h2 className="text-xl font-bold">How to play</h2>
+            <h2 id="how-to-play" className="text-xl font-bold">How to play</h2>
             <ol className="mt-3 list-decimal space-y-2 pl-5 text-muted">
               {meta.instructions.map((t) => (
                 <li key={t}>{t}</li>

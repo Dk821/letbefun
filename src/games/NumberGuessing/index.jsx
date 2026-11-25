@@ -55,7 +55,7 @@ export default function NumberGuessing() {
   if (!level) {
     return (
       <div className="mx-auto max-w-xl">
-        <h2 className="text-xl font-bold">Choose a difficulty</h2>
+        <h2 id="number-guess-difficulty" className="text-xl font-bold">Choose a difficulty</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {Object.entries(LEVELS).map(([k, l]) => (
             <button key={k} className="card p-5 text-left transition hover:-translate-y-1 hover:border-game" onClick={() => start(k)}>

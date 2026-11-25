@@ -179,7 +179,7 @@ export default function InfiniteCraft() {
 
       <aside className="card flex max-h-[34rem] flex-col p-3" aria-label="Discovered elements">
         <div className="px-1 pb-2">
-          <h2 className="text-lg font-bold">Elements</h2>
+          <h2 id="elements-title" className="text-lg font-bold">Elements</h2>
           <p className="text-xs text-muted">{discoveredCount} of {total} dataset elements found</p>
           <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-soft" aria-hidden><div className="h-full bg-game" style={{ width: `${(discoveredCount / total) * 100}%` }} /></div>
           <input className="field mt-2 !py-1.5 text-sm" placeholder="Filter…" aria-label="Filter elements" value={filter} onChange={(e) => setFilter(e.target.value)} />

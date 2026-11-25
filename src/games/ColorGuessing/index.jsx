@@ -84,7 +84,7 @@ export default function ColorGuessing() {
     return (
       <div className="card mx-auto max-w-md p-8 text-center">
         <p className="text-5xl" aria-hidden>{state.score >= 8 ? '🏆' : state.score >= 5 ? '👍' : '🎨'}</p>
-        <h2 className="mt-2 text-3xl font-bold">{state.score} / {ROUNDS}</h2>
+        <h2 id="color-guess-score" className="mt-2 text-3xl font-bold">{state.score} / {ROUNDS}</h2>
         <p className="text-muted">Best: {best} / {ROUNDS}</p>
         <div className="mt-5 flex justify-center gap-2">
           <button className="btn btn-primary" onClick={start}>Play again</button>

@@ -8,7 +8,7 @@ import { useSeo } from '../hooks/index.js'
 export default function Home() {
   useSeo({
     title: '',
-    description: 'letbe.fun is a free box of 15 tiny browser games and curious experiments. No accounts, no tracking — everything stays on your device.',
+    description: `letbe.fun is a free box of ${GAMES.length} tiny browser games and curious experiments. No accounts, no tracking — everything stays on your device.`,
     path: '/',
   })
   const featured = GAMES.filter((g) => g.featured)
@@ -21,7 +21,7 @@ export default function Home() {
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-card/60 px-4 py-2 text-xs font-bold uppercase tracking-widest">
             <Zap size={16} className="fill-[var(--brand)] text-[var(--brand)]" aria-hidden /> A small box of curious things
           </motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-5xl font-black leading-[1.02] sm:text-7xl">
+          <motion.h1 id="home-hero-title" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-5xl font-black leading-[1.02] sm:text-7xl">
             Tiny games for{' '}
             <span className="relative inline-block italic text-[var(--brand)]">
               idle
@@ -30,7 +30,10 @@ export default function Home() {
             minutes.
           </motion.h1>
           <p className="mt-6 max-w-xl text-lg text-muted">
-            Fifteen playable experiments — from alchemy and asteroid impacts to the world’s most unreasonable password rules. No accounts, no ads, no tracking.
+            letbe.fun is a free box of {GAMES.length} tiny browser games and curious experiments. No accounts, no tracking — everything stays on your device.
+          </p>
+          <p className="mt-3 max-w-xl text-muted">
+            From alchemy and asteroid impacts to the world’s most unreasonable password rules, each one is quick, playful, and built to run in your browser.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to="/explore" className="btn btn-primary !px-6 !py-3"><Play size={16} className="fill-current" aria-hidden /> Explore all games <ArrowRight size={16} aria-hidden /></Link>
@@ -40,7 +43,7 @@ export default function Home() {
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">
           <div className="hero-art">
             <img src="/images/hero-pad-light.png" alt="A smiling 3D game controller orbited by a glowing ring" width="700" height="600" fetchpriority="high" className="hero-float w-full select-none dark:hidden" />
-              <img src="/images/hero-pad.png" alt="" aria-hidden="true" width="700" height="600" className="hero-float hidden w-full select-none dark:block" />
+            <img src="/images/hero-pad.png" alt="" aria-hidden="true" width="700" height="600" className="hero-float hidden w-full select-none dark:block" />
           </div>
         </div>
       </section>

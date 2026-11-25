@@ -189,6 +189,10 @@ export function useSeo({ title, description, path = '/' }) {
     set('meta[property="og:description"]', 'content', description, { tag: 'meta', attrs: { property: 'og:description' } })
     set('meta[property="og:url"]', 'content', url, { tag: 'meta', attrs: { property: 'og:url' } })
     set('meta[property="og:image"]', 'content', SITE + '/images/og.png', { tag: 'meta', attrs: { property: 'og:image' } })
+    set('meta[name="twitter:card"]', 'content', 'summary_large_image', { tag: 'meta', attrs: { name: 'twitter:card' } })
+    set('meta[name="twitter:title"]', 'content', full, { tag: 'meta', attrs: { name: 'twitter:title' } })
+    set('meta[name="twitter:description"]', 'content', description, { tag: 'meta', attrs: { name: 'twitter:description' } })
+    set('meta[name="twitter:image"]', 'content', SITE + '/images/og.png', { tag: 'meta', attrs: { name: 'twitter:image' } })
   }, [title, description, path])
 }
 

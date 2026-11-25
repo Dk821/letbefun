@@ -8,7 +8,7 @@ export default function NotFound({ missingGame }) {
   return (
     <div className="mx-auto max-w-lg py-20 text-center">
       <p className="text-7xl" aria-hidden>🛸</p>
-      <h1 className="mt-4 text-4xl font-extrabold">{missingGame ? 'That game isn’t in the box' : 'Lost in space'}</h1>
+      <h1 id="not-found-title" className="mt-4 text-4xl font-extrabold">{missingGame ? 'That game isn’t in the box' : 'Lost in space'}</h1>
       <p className="mt-3 text-muted">
         {missingGame ? <>We couldn’t find “{missingGame}”. Maybe it hasn’t been invented yet.</> : 'The page you wanted drifted away.'}
       </p>

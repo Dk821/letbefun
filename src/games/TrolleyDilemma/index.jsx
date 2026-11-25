@@ -30,7 +30,7 @@ export default function TrolleyDilemma() {
     return (
       <div className="card mx-auto max-w-xl p-8 text-center">
         <p className="text-5xl" aria-hidden>🧭</p>
-        <h2 className="mt-2 text-3xl font-bold">Your moral compass</h2>
+        <h2 id="trolley-results-title" className="mt-2 text-3xl font-bold">Your moral compass</h2>
         <ul className="mt-5 space-y-2 text-left">
           <li className="rounded-xl bg-soft p-3">You chose the option that <b>saves more lives</b> in {util} of {SCENARIOS.length} dilemmas.</li>
           <li className="rounded-xl bg-soft p-3">You were willing to <b>actively intervene</b> in {act} of {SCENARIOS.length}.</li>
@@ -51,7 +51,7 @@ export default function TrolleyDilemma() {
       </div>
       <motion.div key={s.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="card mt-4 p-6">
         <TrackArt kind={s.art} />
-        <h2 className="mt-4 text-2xl font-bold">{s.title}</h2>
+        <h2 id={`trolley-scenario-${s.id}`} className="mt-4 text-2xl font-bold">{s.title}</h2>
         <p className="mt-2 text-muted">{s.text}</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {['a', 'b'].map((k) => {

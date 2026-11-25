@@ -99,7 +99,7 @@ export default function DecisionMaker() {
       </div>
 
       <aside className="card h-fit p-4" aria-label="Saved lists">
-        <h2 className="text-lg font-bold">Saved lists</h2>
+        <h2 id="saved-lists-title" className="text-lg font-bold">Saved lists</h2>
         <div className="mt-2 flex gap-2">
           <input className="field !py-1.5" placeholder="List name" value={name} onChange={(e) => setName(e.target.value)} maxLength={30} aria-label="List name" />
           <button className="btn btn-sm" onClick={save} aria-label="Save current list"><Save size={14} /></button>

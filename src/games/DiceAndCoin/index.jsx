@@ -33,7 +33,7 @@ export default function DiceAndCoin() {
   return (
     <div className="mx-auto grid max-w-3xl gap-4 md:grid-cols-2">
       <section className="card p-5">
-        <h2 className="text-xl font-bold">Dice</h2>
+        <h2 id="dice-title" className="text-xl font-bold">Dice</h2>
         <div className="mt-3 flex flex-wrap gap-2">
           {SIDES.map((s) => <button key={s} className="chip" aria-pressed={sides === s} onClick={() => setSides(s)}>d{s}</button>)}
         </div>
@@ -49,7 +49,7 @@ export default function DiceAndCoin() {
         <button className="btn btn-primary mt-3" onClick={rollDice}>🎲 Roll</button>
       </section>
       <section className="card p-5">
-        <h2 className="text-xl font-bold">Coin</h2>
+        <h2 id="coin-title" className="text-xl font-bold">Coin</h2>
         <div className="my-4 grid place-items-center">
           <div className="grid size-32 place-items-center rounded-full border-4 border-ink text-5xl font-extrabold"
             style={{ background: 'radial-gradient(circle at 30% 30%, #fde68a, #f59e0b)', transform: `rotateY(${spin * 720}deg)`, transition: 'transform .6s' }}>

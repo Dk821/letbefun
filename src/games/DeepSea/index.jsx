@@ -59,7 +59,7 @@ export default function DeepSea() {
                   <span className="text-6xl drop-shadow sm:text-7xl" style={{ animation: 'bob 4s ease-in-out infinite', animationDelay: `${i * 0.4}s` }} aria-hidden>{f.emoji}</span>
                   <div className="rounded-2xl bg-black/35 p-3 text-white backdrop-blur-sm">
                     <p className="text-xs font-semibold uppercase tracking-wider opacity-80">{f.depth.toLocaleString()} m</p>
-                    <h2 className="text-lg font-bold">{f.title}</h2>
+                    <h2 id={`deep-sea-${f.depth}`} className="text-lg font-bold">{f.title}</h2>
                     <p className="text-sm opacity-90">{f.text}</p>
                   </div>
                 </div>
