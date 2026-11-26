@@ -1,9 +1,9 @@
 import { Suspense, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, HelpCircle, Play, RotateCcw, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, HelpCircle, Play, RotateCcw, X } from 'lucide-react'
 import { GAMES, getMeta } from '../data/games.meta.js'
 import { GAME_COMPONENTS } from '../games/registry.js'
-import { ErrorBoundary, FavoriteButton, GameCard, Loader, ShareButton } from '../components/ui.jsx'
+import { ErrorBoundary, GameCard, Loader, ShareButton } from '../components/ui.jsx'
 import { markPlayed } from '../services/storage/index.js'
 import { useSeo } from '../hooks/index.js'
 import NotFound from './NotFound.jsx'
@@ -66,7 +66,6 @@ function GameView({ meta }) {
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <FavoriteButton slug={meta.slug} />
           <ShareButton title={`${meta.title} — letbe.fun`} text={meta.tagline} path={`/games/${meta.slug}`} />
         </div>
       </div>
@@ -117,7 +116,12 @@ function GameView({ meta }) {
       </div>
 
       <section className="mt-16" aria-labelledby="related">
-        <h2 id="related" className="mb-4 text-xl font-bold">Try these next</h2>
+        <div className="mb-4 flex items-center justify-between gap-4">
+          <h2 id="related" className="text-xl font-bold">Try these next</h2>
+          <Link to="/explore" className="btn btn-sm btn-outline-violet">
+            See all games <ArrowRight size={15} aria-hidden />
+          </Link>
+        </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
           {related.map((g, i) => (
             <div key={g.slug} className={i === 3 ? 'sm:hidden' : ''}><GameCard game={g} index={i} /></div>
