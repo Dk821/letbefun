@@ -9,14 +9,14 @@ export const FOOTER_LINKS = [
 
 export const ABOUT = [
   'letbe.fun is a small, hand-built collection of interactive toys, puzzles and thought experiments. Each one is meant to be played in a few minutes and to leave you slightly more curious than before.',
-  'It is a static website. There is no server, no database, no account system, and only anonymous, cookie-free page-view analytics (Vercel Web Analytics). Your scores, favorites and saved games live in your browser\'s own storage, and you can wipe them from Settings at any time.',
+  'It is a static website. There is no server, no database, no account system, and only visitor analytics (Vercel Web Analytics and Google Analytics). Your scores, favorites and saved games live in your browser\'s own storage, and you can wipe them from Settings at any time.',
   'Every game, illustration and dataset here was created for this project. Science-flavored games (like the asteroid lab and the scale of the universe) are simplified for education, so please treat their numbers as approximations.',
   'Built with React, Vite, Tailwind CSS, Framer Motion and Three.js.',
 ]
 
 // Each block is a heading, a list, or a paragraph (with an optional bold lead-in).
 export const PRIVACY = [
-  { lead: 'Short version:', text: 'letbe.fun does not collect, send or sell any data. There is no backend.' },
+  { lead: 'Short version:', text: 'your game data stays in your browser and we do not sell it. There is no backend. We use analytics to understand how the site is visited.' },
   { id: 'privacy-data', heading: 'What is stored on your device' },
   {
     list: [
@@ -26,7 +26,8 @@ export const PRIVACY = [
     ],
   },
   { id: 'privacy-services', heading: 'Third-party services' },
-  { text: 'The only external request the site makes is loading fonts from Google Fonts, which may log your IP address as any web request does. The site also uses Vercel Web Analytics to count anonymous page views; it sets no cookies and does not track you across sites. No other third-party scripts, cookies or trackers are used. If you host a copy yourself you can self-host the fonts.' },
+  { text: 'The site loads fonts from Google Fonts, which may log your IP address as any web request does. It uses Vercel Web Analytics to count anonymous page views without cookies.' },
+  { text: 'The site also uses Google Tag Manager to load Google Analytics. Google Analytics sets cookies and collects information such as the pages you visit, your device and browser, and your approximate location. You can block these cookies in your browser settings.', link: { href: 'https://policies.google.com/technologies/partner-sites', label: 'How Google uses this data' } },
   { id: 'privacy-control', heading: 'Your control' },
   { text: 'Open Settings to export or permanently delete everything stored by this site. Clearing your browser data does the same.' },
 ]

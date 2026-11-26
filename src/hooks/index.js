@@ -167,7 +167,17 @@ export function useIdbCollection(collection) {
   return { items, ready, put, remove }
 }
 
-/** Per-page SEO for client-side navigation. Takes an entry from data/seo.js. */
+/** Tells Google Tag Manager about a route change, once per path (StrictMode runs effects twice). */
+let trackedPath
+function trackPageView(title) {
+  const { pathname, href } = window.location
+  if (pathname === trackedPath) return
+  trackedPath = pathname
+  window.dataLayer = window.dataLayer || []
+  window.dataLayer.push({ event: 'virtual_page_view', page_path: pathname, page_location: href, page_title: title })
+}
+
+/** Per-page SEO and page-view tracking for client-side navigation. Takes an entry from data/seo.js. */
 export function useSeo({ title, description, keywords, url, noindex, jsonLd }) {
   const ld = jsonLd ? JSON.stringify(jsonLd) : ''
   useEffect(() => {
@@ -198,6 +208,7 @@ export function useSeo({ title, description, keywords, url, noindex, jsonLd }) {
       el.textContent = ld
       document.head.appendChild(el)
     }
+    trackPageView(title)
   }, [title, description, keywords, url, noindex, ld])
 }
 
