@@ -104,7 +104,7 @@ function GameView({ meta }) {
                 ))}
               </ul>
             )}
-            <div className="mx-auto min-h-0 w-full max-w-6xl flex-1 overflow-auto p-2 sm:p-4">
+            <div className="mx-auto min-h-0 w-full max-w-[96rem] flex-1 overflow-auto p-2 sm:p-4">
               <ErrorBoundary>
                 <Suspense fallback={<Loader label={`Loading ${meta.title}…`} />}>
                   <Game key={runKey} />

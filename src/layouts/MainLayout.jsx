@@ -44,7 +44,6 @@ export default function MainLayout() {
           </Link>
           <nav aria-label="Main" className="flex items-center gap-1">
             <NavLink to="/explore" className={navCls}>Explore</NavLink>
-            <NavLink to="/favorites" className={navCls}>Favorites</NavLink>
             <NavLink to="/recent" className={`${navCls({ isActive: false })} hidden sm:inline-block`}>Recent</NavLink>
             <button
               className="grid size-9 place-items-center rounded-full text-muted hover:bg-soft"
