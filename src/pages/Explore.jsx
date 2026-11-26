@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import { CATEGORIES, GAMES } from '../data/games.meta.js'
 import { GameCard } from '../components/ui.jsx'
+import { PAGES } from '../data/seo.js'
 import { useSeo } from '../hooks/index.js'
 
 const SORTS = {
@@ -12,7 +13,7 @@ const SORTS = {
 }
 
 export default function Explore() {
-  useSeo({ title: 'Explore all games', description: 'Browse, search and filter every letbe.fun game and experiment.', path: '/explore' })
+  useSeo(PAGES.explore)
   const [params, setParams] = useSearchParams()
   const q = params.get('q') || ''
   const category = params.get('category') || 'All'

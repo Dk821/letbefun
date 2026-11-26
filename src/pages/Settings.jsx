@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Download, Trash2 } from 'lucide-react'
 import { idbCount, isStorageAvailable, listKeys, readItem, resetEverything, soundStore, themeStore, usageBytes, useStore } from '../services/storage/index.js'
+import { PAGES } from '../data/seo.js'
 import { useSeo, useSound } from '../hooks/index.js'
 
 export default function Settings() {
-  useSeo({ title: 'Settings', description: 'Theme, sound and local data controls for letbe.fun.', path: '/settings' })
+  useSeo(PAGES.settings)
   const theme = useStore(themeStore)
   const sound = useStore(soundStore)
   const play = useSound()

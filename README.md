@@ -30,7 +30,7 @@ Everything is stored in the visitor's own browser (LocalStorage + IndexedDB).
 ```bash
 npm install
 npm run dev        # http://localhost:5173
-npm run build      # generates sitemap.xml + robots.txt, then builds to dist/
+npm run build      # sitemap.xml + robots.txt, vite build, then prerenders one HTML file per route
 npm run preview    # serve the production build locally
 ```
 
@@ -48,7 +48,9 @@ src/
   hooks/             useGameData, useBestScore, useStopwatch, useCountdown, useInterval, useSound, useIdbCollection, useSeo
   services/storage/  local.js (versioned LocalStorage), idb.js (IndexedDB), store.js (observable stores), index.js
   data/games.meta.js game metadata (single source of truth for routes, SEO, sitemap)
+  data/seo.js        titles, descriptions and structured data per page (domain lives in `SITE`)
 scripts/gen-sitemap.mjs   runs automatically before `npm run build`
+scripts/prerender.mjs     runs automatically after `npm run build`
 ```
 
 ### Adding a game
@@ -68,16 +70,15 @@ scripts/gen-sitemap.mjs   runs automatically before `npm run build`
 1. Push the repo to GitHub.
 2. In Vercel choose **Add New → Project**, import the repo. Framework preset **Vite** is detected automatically
    (build command `npm run build`, output directory `dist`).
-3. Deploy. `vercel.json` rewrites every non-asset path to `index.html`, so refreshing or deep-linking `/games/perfect-circle` works.
+3. Deploy. Every route is prerendered to its own HTML file, so refreshing or deep-linking `/games/perfect-circle` works, and unknown URLs get `404.html` with a real 404 status.
+   A new route in `App.jsx` also needs an entry in `data/seo.js` and `scripts/prerender.mjs`.
 
 Or via CLI: `npm i -g vercel && vercel --prod`.
 
-**Before going live**, replace the placeholder domain `https://letbe.fun` (in `index.html`, `src/hooks/index.js` → `SITE`) or set
-`SITE_URL=https://your-domain.com` when building so `sitemap.xml`/`robots.txt` use it.
+The production domain is `https://letbe.fun`; change `SITE` in `src/data/seo.js` if it moves.
 
 ## Notes & limitations
 
-- Per-page `<title>`, description, canonical and Open Graph tags are set client-side. Crawlers that don't execute JavaScript (some social-card scrapers) will only see the default tags in `index.html`. For per-game link previews you would need prerendering, which is out of scope for this backend-free SPA.
-- The Open Graph image is an SVG (`public/images/og.svg`); some platforms require PNG/JPG — export one and update the tag if needed.
+- Per-page titles, meta tags and JSON-LD are prerendered at build time and kept in sync client-side by `useSeo`. Dev mode shows only default tags in the initial HTML.
 - The only third-party request is Google Fonts. Self-host the fonts to remove it.
 - The asteroid model is a deliberate simplification for education; the planet is procedurally generated, not Earth.

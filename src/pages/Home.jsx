@@ -3,14 +3,11 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Play, Zap } from 'lucide-react'
 import { CATEGORIES, GAMES } from '../data/games.meta.js'
 import { GameCard, Section } from '../components/ui.jsx'
+import { PAGES } from '../data/seo.js'
 import { useSeo } from '../hooks/index.js'
 
 export default function Home() {
-  useSeo({
-    title: '',
-    description: `letbe.fun is a free box of ${GAMES.length} tiny browser games and curious experiments. No accounts, no tracking — everything stays on your device.`,
-    path: '/',
-  })
+  useSeo(PAGES.home)
   const featured = GAMES.filter((g) => g.featured)
   const latest = [...GAMES].sort((a, b) => b.added.localeCompare(a.added)).slice(0, 4)
 

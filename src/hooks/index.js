@@ -167,33 +167,40 @@ export function useIdbCollection(collection) {
   return { items, ready, put, remove }
 }
 
-/** Per-page SEO: title, description, canonical and Open Graph tags. */
-const SITE = 'https://letbe.fun'
-export function useSeo({ title, description, path = '/' }) {
+/** Per-page SEO for client-side navigation. Takes an entry from data/seo.js. */
+export function useSeo({ title, description, keywords, url, noindex, jsonLd }) {
+  const ld = jsonLd ? JSON.stringify(jsonLd) : ''
   useEffect(() => {
-    const full = title ? `${title} — letbe.fun` : 'letbe.fun — tiny games and curious experiments'
-    document.title = full
-    const set = (sel, attr, val, create) => {
-      let el = document.head.querySelector(sel)
+    document.title = title
+    const set = (tag, key, name, attr, val) => {
+      let el = document.head.querySelector(`${tag}[${key}="${name}"]`)
       if (!el) {
-        el = document.createElement(create.tag)
-        Object.entries(create.attrs).forEach(([k, v]) => el.setAttribute(k, v))
+        el = document.createElement(tag)
+        el.setAttribute(key, name)
         document.head.appendChild(el)
       }
       el.setAttribute(attr, val)
     }
-    const url = SITE + path
-    set('meta[name="description"]', 'content', description, { tag: 'meta', attrs: { name: 'description' } })
-    set('link[rel="canonical"]', 'href', url, { tag: 'link', attrs: { rel: 'canonical' } })
-    set('meta[property="og:title"]', 'content', full, { tag: 'meta', attrs: { property: 'og:title' } })
-    set('meta[property="og:description"]', 'content', description, { tag: 'meta', attrs: { property: 'og:description' } })
-    set('meta[property="og:url"]', 'content', url, { tag: 'meta', attrs: { property: 'og:url' } })
-    set('meta[property="og:image"]', 'content', SITE + '/images/og.png', { tag: 'meta', attrs: { property: 'og:image' } })
-    set('meta[name="twitter:card"]', 'content', 'summary_large_image', { tag: 'meta', attrs: { name: 'twitter:card' } })
-    set('meta[name="twitter:title"]', 'content', full, { tag: 'meta', attrs: { name: 'twitter:title' } })
-    set('meta[name="twitter:description"]', 'content', description, { tag: 'meta', attrs: { name: 'twitter:description' } })
-    set('meta[name="twitter:image"]', 'content', SITE + '/images/og.png', { tag: 'meta', attrs: { name: 'twitter:image' } })
-  }, [title, description, path])
+    const meta = (key, name, val) => set('meta', key, name, 'content', val)
+    meta('name', 'description', description)
+    meta('name', 'keywords', keywords)
+    meta('name', 'robots', noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large')
+    if (noindex) document.head.querySelector('link[rel="canonical"]')?.remove()
+    else set('link', 'rel', 'canonical', 'href', url)
+    meta('property', 'og:title', title)
+    meta('property', 'og:description', description)
+    meta('property', 'og:url', url)
+    meta('name', 'twitter:title', title)
+    meta('name', 'twitter:description', description)
+    document.getElementById('ld-json')?.remove()
+    if (ld) {
+      const el = document.createElement('script')
+      el.type = 'application/ld+json'
+      el.id = 'ld-json'
+      el.textContent = ld
+      document.head.appendChild(el)
+    }
+  }, [title, description, keywords, url, noindex, ld])
 }
 
 export function useKey(handler, deps = []) {

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import { GAMES } from '../data/games.meta.js'
+import { PAGES } from '../data/seo.js'
 import { useSeo } from '../hooks/index.js'
 
 export default function NotFound({ missingGame }) {
-  useSeo({ title: 'Page not found', description: 'This page wandered off.', path: '/404' })
+  useSeo(PAGES.notFound)
   const pick = GAMES[Math.floor(Math.random() * GAMES.length)]
   return (
     <div className="mx-auto max-w-lg py-20 text-center">

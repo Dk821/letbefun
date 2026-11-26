@@ -5,6 +5,7 @@ import { GAMES, getMeta } from '../data/games.meta.js'
 import { GAME_COMPONENTS } from '../games/registry.js'
 import { ErrorBoundary, GameCard, Loader, ShareButton } from '../components/ui.jsx'
 import { markPlayed } from '../services/storage/index.js'
+import { gameSeo } from '../data/seo.js'
 import { useSeo } from '../hooks/index.js'
 import NotFound from './NotFound.jsx'
 
@@ -20,7 +21,7 @@ function GameView({ meta }) {
   const [started, setStarted] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
   const [runKey, setRunKey] = useState(0)
-  useSeo({ title: meta.title, description: `${meta.tagline} ${meta.description}`, path: `/games/${meta.slug}` })
+  useSeo(gameSeo(meta))
 
   const startGame = () => {
     setStarted(true)

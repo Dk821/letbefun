@@ -22,7 +22,7 @@ Frontend-only mini-games platform (React + Vite + Tailwind v4 + Framer Motion + 
 | 10 | Git init / GitHub push / Vercel deploy | ⏳ Not done |
 | 11 | Accessibility audit (axe-core, WCAG 2 A/AA + best practice, 22 pages × light/dark) | ✅ 0 violations. Lighthouse not run |
 | 12 | PNG Open Graph image | ✅ Done (`public/images/og.png`) |
-| 13 | Per-game link previews for non-JS crawlers (needs prerendering) | ⏳ Out of scope for now |
+| 13 | SEO: prerendered HTML per route, structured data, real 404s | ✅ Done |
 
 ---
 
@@ -41,8 +41,8 @@ Frontend-only mini-games platform (React + Vite + Tailwind v4 + Framer Motion + 
 | Game registry | `src/games/registry.js` | Auto-discovers `src/games/*/index.jsx` with `import.meta.glob`; each game is a lazy chunk |
 | Game metadata | `src/data/games.meta.js` | Single source of truth: slug, title, category, color, instructions, dates. Used by routes, SEO, sitemap |
 | Hooks | `src/hooks/index.js` | `useGameData`, `useBestScore`, `useInterval`, `useStopwatch`, `useCountdown`, `useSound` (WebAudio synth, no files), `useIdbCollection`, `useSeo`, `useKey` |
-| SEO | `useSeo` hook, `scripts/gen-sitemap.mjs`, `public/robots.txt`, `public/sitemap.xml` | Title, description, canonical, OG tags per route; sitemap generated before each build |
-| Deployment | `vercel.json` | SPA rewrite for nested routes, immutable asset caching |
+| SEO | `src/data/seo.js`, `useSeo` hook, `scripts/gen-sitemap.mjs`, `scripts/prerender.mjs` | Per-route title, description, canonical, OG tags and JSON-LD, prerendered at build; sitemap generated before each build |
+| Deployment | `vercel.json` | Clean URLs for prerendered pages, immutable asset caching |
 
 ---
 
@@ -142,8 +142,8 @@ Headless Chrome (Playwright) against the dev server and the production preview:
 
 1. `git init`, commit, push to GitHub, connect to Vercel.
 2. Run an accessibility and Lighthouse audit (focus order, dark-mode contrast, screen-reader pass) and fix findings.
-3. Replace the SVG Open Graph image with a PNG.
-4. Replace the placeholder domain `https://letbe.fun` (in `index.html` and `src/hooks/index.js`), or build with `SITE_URL=...`.
+3. Submit `https://letbe.fun/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
+4. Compress the large PNGs in `public/`.
 5. Test on real phones and in Safari and Firefox.
-6. Optional: expand the crafting recipe set; self-host fonts to remove the only third-party request (Google Fonts); prerender per-game pages for link previews.
+6. Optional: expand the crafting recipe set; self-host fonts to remove the only third-party request (Google Fonts).
 7. Optional: add an automated test suite (the Playwright smoke scripts currently live outside the repo, in the session scratchpad).

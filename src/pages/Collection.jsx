@@ -2,17 +2,14 @@ import { Link } from 'react-router-dom'
 import { GAMES, getMeta } from '../data/games.meta.js'
 import { GameCard } from '../components/ui.jsx'
 import { favoritesStore, recentStore, useStore } from '../services/storage/index.js'
+import { PAGES } from '../data/seo.js'
 import { useSeo } from '../hooks/index.js'
 
 export default function Collection({ kind }) {
   const favs = useStore(favoritesStore)
   const recent = useStore(recentStore)
   const isFav = kind === 'favorites'
-  useSeo({
-    title: isFav ? 'Favorites' : 'Recently played',
-    description: isFav ? 'Games you saved on this device.' : 'Games you played recently on this device.',
-    path: isFav ? '/favorites' : '/recent',
-  })
+  useSeo(isFav ? PAGES.favorites : PAGES.recent)
   const games = (isFav ? favs : recent.map((r) => r.slug)).map(getMeta).filter(Boolean)
   return (
     <div className="pt-10">

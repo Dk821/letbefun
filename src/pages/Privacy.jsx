@@ -1,7 +1,8 @@
+import { PAGES } from '../data/seo.js'
 import { useSeo } from '../hooks/index.js'
 
 export default function Privacy() {
-  useSeo({ title: 'Privacy', description: 'letbe.fun stores data only in your browser. Here is exactly what and why.', path: '/privacy' })
+  useSeo(PAGES.privacy)
   return (
     <article className="mx-auto max-w-2xl pt-10">
       <h1 id="privacy-title" className="text-4xl font-extrabold sm:text-5xl">Privacy</h1>
