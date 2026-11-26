@@ -129,6 +129,8 @@ input[type="range"] { accent-color: var(--game, var(--accent)); width: 100%; }
 .feat-time { font-size: .75rem; font-weight: 600; color: var(--muted); }
 .feat-cta { border-radius: 999px; padding: .6rem 1rem; font-weight: 700; font-size: .9rem; background: var(--soft); border: 1px solid var(--line); color: var(--ink); transition: all .25s ease; }
 .feat-card:hover .feat-cta { background: var(--game); border-color: var(--game); color: #fff; }
+.feat-share { display: grid; place-items: center; width: 2.7rem; height: 2.7rem; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); color: var(--ink); cursor: pointer; transition: border-color .25s ease; }
+.feat-share:hover { border-color: var(--game); }
 
 /* ---- section heading ---- */
 .section-bar { width: .35rem; border-radius: 999px; background: linear-gradient(to bottom, var(--violet), color-mix(in srgb, var(--violet) 30%, transparent)); }

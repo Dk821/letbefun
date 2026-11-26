@@ -10,6 +10,7 @@
   .feat-card { border-radius: 1.2rem; }
   .feat-banner { height: 7rem; }
   .feat-cta { padding: .45rem .75rem; font-size: .8rem; }
+  .feat-share { width: 2.25rem; height: 2.25rem; }
   .game-chip { padding: .2rem .6rem; font-size: .7rem; }
 
   /* comfortable touch targets */

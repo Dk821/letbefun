@@ -54,7 +54,7 @@ export function FavoriteButton({ slug, className = '' }) {
   )
 }
 
-export function ShareButton({ title, text, path }) {
+export function ShareButton({ title, text, path, iconOnly = false, className = 'btn btn-ghost btn-sm', label = 'Share' }) {
   const [done, setDone] = useState(false)
   async function share() {
     const url = window.location.origin + path
@@ -81,9 +81,9 @@ export function ShareButton({ title, text, path }) {
     setTimeout(() => setDone(false), 1800)
   }
   return (
-    <button type="button" className="btn btn-ghost btn-sm" onClick={share}>
+    <button type="button" className={className} onClick={share} aria-label={iconOnly ? label : undefined} title={iconOnly ? (done ? 'Link copied' : label) : undefined}>
       {done ? <Check size={15} aria-hidden /> : <Share2 size={15} aria-hidden />}
-      <span aria-live="polite">{done ? 'Link copied' : 'Share'}</span>
+      <span className={iconOnly ? 'sr-only' : undefined} aria-live="polite">{done ? 'Link copied' : iconOnly ? '' : label}</span>
     </button>
   )
 }
@@ -98,22 +98,33 @@ export function GameCard({ game, index = 0 }) {
       className="h-full"
       style={{ '--game': game.color }}
     >
-      <Link
-        to={`/games/${game.slug}`}
-        className="feat-card group flex h-full flex-col overflow-hidden rounded-[1.6rem]"
-        aria-label={`${game.title}: ${game.tagline}`}
-      >
-        <div className="feat-banner relative grid h-28 place-items-center sm:h-40 overflow-hidden">
-          <span className="feat-emoji text-5xl sm:text-7xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden>{game.emoji}</span>
-          <span className="game-chip feat-chip absolute left-2 top-2 sm:left-4 sm:top-4">{game.category}</span>
-          <span className="feat-time absolute right-4 top-4 inline-flex max-sm:hidden items-center gap-1.5"><Clock size={13} aria-hidden /> {game.minutes} min</span>
-        </div>
-        <div className="flex flex-1 flex-col p-3 sm:p-5">
-          <h3 id={`game-card-${game.slug}`} className="text-base font-extrabold leading-tight sm:text-xl">{game.title}</h3>
-          <p className="mt-1.5 flex-1 text-[0.8rem] text-muted sm:text-[0.92rem]">{game.tagline}</p>
-          <span className="feat-cta mt-3 sm:mt-5 inline-flex items-center justify-center gap-2 self-stretch"><Play size={14} className="fill-current" aria-hidden /> Play now</span>
-        </div>
-      </Link>
+      {/* The share button sits beside the link, not inside it: buttons cannot be nested in links. */}
+      <div className="feat-card group relative flex h-full flex-col overflow-hidden rounded-[1.6rem]">
+        <Link
+          to={`/games/${game.slug}`}
+          className="flex flex-1 flex-col rounded-[inherit] focus-visible:-outline-offset-4"
+          aria-label={`${game.title}: ${game.tagline}`}
+        >
+          <div className="feat-banner relative grid h-28 place-items-center sm:h-40 overflow-hidden">
+            <span className="feat-emoji text-5xl sm:text-7xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden>{game.emoji}</span>
+            <span className="game-chip feat-chip absolute left-2 top-2 sm:left-4 sm:top-4">{game.category}</span>
+            <span className="feat-time absolute right-4 top-4 inline-flex max-sm:hidden items-center gap-1.5"><Clock size={13} aria-hidden /> {game.minutes} min</span>
+          </div>
+          <div className="flex flex-1 flex-col p-3 sm:p-5">
+            <h3 id={`game-card-${game.slug}`} className="text-base font-extrabold leading-tight sm:text-xl">{game.title}</h3>
+            <p className="mt-1.5 flex-1 text-[0.8rem] text-muted sm:text-[0.92rem]">{game.tagline}</p>
+            <span className="feat-cta mt-3 mr-11 sm:mt-5 sm:mr-[3.25rem] inline-flex items-center justify-center gap-2 self-stretch"><Play size={14} className="fill-current" aria-hidden /> Play now</span>
+          </div>
+        </Link>
+        <ShareButton
+          iconOnly
+          className="feat-share absolute bottom-3 right-3 sm:bottom-5 sm:right-5"
+          label={`Share ${game.title}`}
+          title={`${game.title} — letbe.fun`}
+          text={game.tagline}
+          path={`/games/${game.slug}`}
+        />
+      </div>
     </motion.div>
   )
 }
