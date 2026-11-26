@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Plus, Trash2 } from 'lucide-react'
+import { LayoutGrid, Plus, Trash2 } from 'lucide-react'
 import { useIdbCollection, useSound } from '../../hooks/index.js'
 import { ALL_RESULTS, BASE, keyOf, knownEmoji } from './recipes.js'
 import { combine } from './engine.js'
 
-const CHIP_W = 110
+const CHIP_W = 150
 
 export default function InfiniteCraft() {
   const discovered = useIdbCollection('craft-discovered')
@@ -14,6 +14,7 @@ export default function InfiniteCraft() {
   const [msg, setMsg] = useState('Drag an element onto another to combine them.')
   const [form, setForm] = useState({ a: '', b: '', r: '', e: '✨' })
   const [filter, setFilter] = useState('')
+  const [elementsOpen, setElementsOpen] = useState(true)
   const area = useRef(null)
   const drag = useRef(null)
   const nextId = useRef(1)
@@ -92,7 +93,11 @@ export default function InfiniteCraft() {
   }
 
   useEffect(() => {
-    const clear = (e) => e.key === 'Escape' && setSel(null)
+    const clear = (e) => {
+      if (e.key !== 'Escape') return
+      setSel(null)
+      setElementsOpen(false)
+    }
     window.addEventListener('keydown', clear)
     return () => window.removeEventListener('keydown', clear)
   }, [])
@@ -112,15 +117,15 @@ export default function InfiniteCraft() {
   const discoveredCount = [...known.keys()].filter((n) => ALL_RESULTS.has(n) || BASE.some((b) => b.name === n)).length
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[1fr_17rem]">
-      <div>
+    <div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
+      <div className="order-2 lg:order-1">
         <div
           ref={area}
           className="card relative h-[26rem] touch-none overflow-hidden sm:h-[32rem]"
           style={{ backgroundImage: 'radial-gradient(var(--line) 1px, transparent 1px)', backgroundSize: '22px 22px' }}
           aria-label="Workspace"
         >
-          {items.length === 0 && <p className="absolute inset-0 grid place-items-center px-6 text-center text-muted">Tap elements in the list to add them here.</p>}
+          {items.length === 0 && <p className="absolute inset-0 grid place-items-center px-6 text-center text-muted">Tap an element above to add it here.</p>}
           {items.map((it) => (
             <button
               key={it.id}
@@ -140,10 +145,11 @@ export default function InfiniteCraft() {
                 } else if (e.key === 'Delete' || e.key === 'Backspace') setItems((its) => its.filter((x) => x.id !== it.id))
               }}
               aria-pressed={sel === it.id}
-              className="no-select absolute flex cursor-grab items-center gap-1.5 rounded-xl border-2 bg-card px-3 py-2 text-sm font-semibold active:cursor-grabbing"
-              style={{ left: it.x, top: it.y, minWidth: 0, borderColor: sel === it.id ? 'var(--game)' : 'var(--ink)', boxShadow: sel === it.id ? '0 0 0 3px color-mix(in srgb, var(--game) 35%, transparent)' : undefined, touchAction: 'none' }}
+              className="no-select absolute flex cursor-grab items-center gap-2 rounded-2xl border-2 bg-card px-2 py-1.5 text-sm font-semibold active:cursor-grabbing"
+              style={{ left: it.x, top: it.y, maxWidth: 180, borderColor: sel === it.id ? 'var(--game)' : 'var(--ink)', boxShadow: sel === it.id ? '0 0 0 3px color-mix(in srgb, var(--game) 35%, transparent)' : undefined, touchAction: 'none' }}
             >
-              <span aria-hidden>{it.emoji}</span>{it.name}
+              <span className="alchemy-icon" aria-hidden>{it.emoji}</span>
+              <span className="min-w-0 truncate">{it.name}</span>
             </button>
           ))}
         </div>
@@ -177,22 +183,36 @@ export default function InfiniteCraft() {
         </details>
       </div>
 
-      <aside className="card flex max-h-[34rem] flex-col p-3" aria-label="Discovered elements">
+      <aside className="card order-1 flex max-h-[34rem] flex-col p-3 lg:order-2" aria-label="Discovered elements">
         <div className="px-1 pb-2">
-          <h2 id="elements-title" className="text-lg font-bold">Elements</h2>
-          <p className="text-xs text-muted">{discoveredCount} of {total} dataset elements found</p>
+          <div className="flex items-center justify-between gap-2">
+            <div>
+              <h2 id="elements-title" className="text-lg font-bold">Elements</h2>
+              <p className="text-xs text-muted">{discoveredCount} of {total} dataset elements found</p>
+            </div>
+            <button className="btn btn-sm btn-ghost lg:hidden" onClick={() => setElementsOpen((open) => !open)} aria-expanded={elementsOpen} aria-controls="elements-grid">
+              <LayoutGrid size={14} aria-hidden /> {elementsOpen ? 'Hide' : 'Show'}
+            </button>
+          </div>
           <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-soft" aria-hidden><div className="h-full bg-game" style={{ width: `${(discoveredCount / total) * 100}%` }} /></div>
-          <input className="field mt-2 !py-1.5 text-sm" placeholder="Filter…" aria-label="Filter elements" value={filter} onChange={(e) => setFilter(e.target.value)} />
         </div>
-        <ul className="flex flex-1 flex-wrap content-start gap-2 overflow-y-auto p-1">
-          {list.map(([n, em]) => (
-            <li key={n}>
-              <button className="chip !py-1.5 text-sm hover:border-game" onClick={() => { addItem(n, em); play('pop') }}>
-                <span aria-hidden>{em}</span> {n}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div id="elements-grid" className={`${elementsOpen ? 'block' : 'hidden'} min-h-0 flex-1 lg:block`}>
+          <input className="field mb-2 !py-1.5 text-sm" placeholder="Filter…" aria-label="Filter elements" value={filter} onChange={(e) => setFilter(e.target.value)} />
+          <ul className="grid max-h-[16rem] min-h-0 grid-cols-5 content-start gap-2 overflow-y-auto p-1 sm:max-h-[20rem] sm:grid-cols-6 lg:max-h-none lg:grid-cols-3">
+            {list.map(([n, em]) => (
+              <li key={n} className="min-w-0">
+                <button
+                  className="flex w-full min-w-0 flex-col items-center gap-1.5 rounded-xl border border-line bg-soft/50 p-2 text-center transition hover:border-game hover:bg-soft"
+                  title={n}
+                  onClick={() => { addItem(n, em); play('pop') }}
+                >
+                  <span className="alchemy-icon" aria-hidden>{em}</span>
+                  <span className="w-full truncate text-xs font-medium">{n}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </aside>
     </div>
   )
