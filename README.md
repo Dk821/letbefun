@@ -75,7 +75,7 @@ scripts/prerender.mjs     runs automatically after `npm run build`
 
 Or via CLI: `npm i -g vercel && vercel --prod`.
 
-The production domain is `https://letbe.fun`; change `SITE` in `src/data/seo.js` if it moves.
+The production domain is `https://www.letbe.fun`; change `SITE` in `src/data/seo.js` if it moves.
 
 ## Notes & limitations
 

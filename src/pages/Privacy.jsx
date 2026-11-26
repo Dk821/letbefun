@@ -1,5 +1,15 @@
+import { PRIVACY } from '../data/content.js'
 import { PAGES } from '../data/seo.js'
 import { useSeo } from '../hooks/index.js'
+
+function Rich({ lead, text }) {
+  return (
+    <>
+      {lead && <><strong className="text-ink">{lead}</strong>{' '}</>}
+      {text}
+    </>
+  )
+}
 
 export default function Privacy() {
   useSeo(PAGES.privacy)
@@ -7,17 +17,18 @@ export default function Privacy() {
     <article className="mx-auto max-w-2xl pt-10">
       <h1 id="privacy-title" className="text-4xl font-extrabold sm:text-5xl">Privacy</h1>
       <div className="mt-6 space-y-5 leading-relaxed text-muted">
-        <p><strong className="text-ink">Short version:</strong> letbe.fun does not collect, send or sell any data. There is no backend.</p>
-        <h2 id="privacy-data" className="pt-2 text-xl font-bold text-ink">What is stored on your device</h2>
-        <ul className="list-disc space-y-1 pl-6">
-          <li><strong className="text-ink">LocalStorage:</strong> theme, sound preference, favorites, recently played games, best scores and small game progress.</li>
-          <li><strong className="text-ink">IndexedDB:</strong> larger items such as discovered elements, custom recipes and your saved decision lists.</li>
-          <li>Passwords typed into the Password Gauntlet are never stored or transmitted. Do not reuse real passwords anywhere in games.</li>
-        </ul>
-        <h2 id="privacy-services" className="pt-2 text-xl font-bold text-ink">Third-party services</h2>
-        <p>The only external request the site makes is loading fonts from Google Fonts, which may log your IP address as any web request does. The site also uses Vercel Web Analytics to count anonymous page views; it sets no cookies and does not track you across sites. No other third-party scripts, cookies or trackers are used. If you host a copy yourself you can self-host the fonts.</p>
-        <h2 id="privacy-control" className="pt-2 text-xl font-bold text-ink">Your control</h2>
-        <p>Open Settings to export or permanently delete everything stored by this site. Clearing your browser data does the same.</p>
+        {PRIVACY.map((block, i) => {
+          if (block.heading) return <h2 key={i} id={block.id} className="pt-2 text-xl font-bold text-ink">{block.heading}</h2>
+          if (block.list)
+            return (
+              <ul key={i} className="list-disc space-y-1 pl-6">
+                {block.list.map((item) => (
+                  <li key={item.text}><Rich {...item} /></li>
+                ))}
+              </ul>
+            )
+          return <p key={i}><Rich {...block} /></p>
+        })}
       </div>
     </article>
   )

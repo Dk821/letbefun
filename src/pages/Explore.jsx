@@ -33,7 +33,7 @@ export default function Explore() {
 
   return (
     <div className="pt-10">
-      <h1 id="explore-title" className="text-4xl font-extrabold sm:text-5xl">Explore</h1>
+      <h1 id="explore-title" className="text-4xl font-extrabold sm:text-5xl">All games</h1>
       <p className="mt-2 text-muted">{GAMES.length} experiments and counting.</p>
 
       <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">

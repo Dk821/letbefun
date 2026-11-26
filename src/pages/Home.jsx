@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Play, Zap } from 'lucide-react'
 import { CATEGORIES, GAMES } from '../data/games.meta.js'
 import { GameCard, Section } from '../components/ui.jsx'
-import { PAGES } from '../data/seo.js'
+import { HOME_H1, HOME_SUBHEADING, PAGES } from '../data/seo.js'
 import { useSeo } from '../hooks/index.js'
 
 export default function Home() {
@@ -19,15 +19,15 @@ export default function Home() {
             <Zap size={16} className="fill-[var(--brand)] text-[var(--brand)]" aria-hidden /> A small box of curious things
           </motion.p>
           <motion.h1 id="home-hero-title" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-5xl font-black leading-[1.02] sm:text-7xl">
-            Tiny games for{' '}
+            {HOME_H1.before}
             <span className="relative inline-block italic text-[var(--brand)]">
-              idle
+              {HOME_H1.highlight}
               <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 120 10" preserveAspectRatio="none" aria-hidden><path d="M2 7 Q 40 1 118 4" stroke="var(--brand)" strokeWidth="3" fill="none" strokeLinecap="round" /></svg>
-            </span>{' '}
-            minutes.
+            </span>
+            {HOME_H1.after}
           </motion.h1>
           <p className="mt-6 max-w-xl text-lg text-muted">
-            letbe.fun is a free box of {GAMES.length} tiny browser games and curious experiments. No accounts, no tracking — everything stays on your device.
+            {HOME_SUBHEADING}
           </p>
           <p className="mt-3 max-w-xl text-muted">
             From alchemy and asteroid impacts to the world’s most unreasonable password rules, each one is quick, playful, and built to run in your browser.

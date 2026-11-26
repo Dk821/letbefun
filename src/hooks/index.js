@@ -190,8 +190,6 @@ export function useSeo({ title, description, keywords, url, noindex, jsonLd }) {
     meta('property', 'og:title', title)
     meta('property', 'og:description', description)
     meta('property', 'og:url', url)
-    meta('name', 'twitter:title', title)
-    meta('name', 'twitter:description', description)
     document.getElementById('ld-json')?.remove()
     if (ld) {
       const el = document.createElement('script')

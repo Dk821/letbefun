@@ -142,7 +142,7 @@ Headless Chrome (Playwright) against the dev server and the production preview:
 
 1. `git init`, commit, push to GitHub, connect to Vercel.
 2. Run an accessibility and Lighthouse audit (focus order, dark-mode contrast, screen-reader pass) and fix findings.
-3. Submit `https://letbe.fun/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
+3. Submit `https://www.letbe.fun/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
 4. Compress the large PNGs in `public/`.
 5. Test on real phones and in Safari and Firefox.
 6. Optional: expand the crafting recipe set; self-host fonts to remove the only third-party request (Google Fonts).

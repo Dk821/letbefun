@@ -2,12 +2,17 @@
 // app at runtime (useSeo) and by the build scripts (sitemap + prerender).
 import { GAMES } from './games.meta.js'
 
-export const SITE = 'https://letbe.fun'
+export const SITE = 'https://www.letbe.fun'
 export const SITE_NAME = 'letbe.fun'
 export const OG_IMAGE = `${SITE}/images/og.png`
 export const OG_IMAGE_ALT = 'letbe.fun logo with a smiling game controller'
 
-const HOME_DESCRIPTION = `Play ${GAMES.length} free browser games and curious experiments on letbe.fun. No downloads, no sign-up. Quick puzzles, arcade games and more.`
+const HOME_DESCRIPTION = `Play ${GAMES.length} free arcade, puzzle and simulation games in your browser. No download and no sign-up, so you can pick a game and start right away.`
+
+// Homepage H1 and subheading, shared by Home.jsx and scripts/prerender.mjs.
+// The H1 is split so the app can style the highlighted word.
+export const HOME_H1 = { before: 'Tiny games for ', highlight: 'idle', after: ' minutes.' }
+export const HOME_SUBHEADING = `Play ${GAMES.length} free arcade, puzzle and simulation games in your browser. No download, no sign-up.`
 
 // Search-friendly <title> per game (the in-app headings keep the short names).
 const GAME_TITLES = {
@@ -43,6 +48,13 @@ const GAME_TITLES = {
   'dice-and-coin': 'Online Dice Roller and Coin Flip',
 }
 
+// Shorter search descriptions where tagline + description would run long.
+const GAME_DESCRIPTIONS = {
+  'password-challenge': 'A password field with increasingly unreasonable rules. Type a password that satisfies every rule. Nothing you type ever leaves your device.',
+  'trolley-dilemma': 'Twelve fictional moral dilemmas. Pick a side, then see what your choices say about your leanings. Choices are saved only on this device.',
+  'asteroid-impact': 'Pick a rock, a speed and a target. See the aftermath in an educational impact calculator with a 3D globe. Results are rough estimates.',
+}
+
 const BASE_KEYWORDS = ['free online games', 'browser games', 'no download games', 'letbe.fun']
 
 const absolute = (path) => `${SITE}${path === '/' ? '/' : path}`
@@ -70,7 +82,7 @@ function page({ path, title, description, keywords = [], noindex = false, jsonLd
 export const PAGES = {
   home: page({
     path: '/',
-    title: `letbe.fun: ${GAMES.length} Free Browser Games, No Download`,
+    title: `${GAMES.length} Free Browser Games to Play, No Download | letbe.fun`,
     description: HOME_DESCRIPTION,
     keywords: ['mini games', 'puzzle games', 'arcade games', 'fun websites'],
     jsonLd: [
@@ -94,7 +106,7 @@ export const PAGES = {
 
 export function gameSeo(game) {
   const path = `/games/${game.slug}`
-  const description = `${game.tagline} ${game.description}`
+  const description = GAME_DESCRIPTIONS[game.slug] || `${game.tagline} ${game.description}`
   return page({
     path,
     keywords: [game.title.toLowerCase(), `${game.title.toLowerCase()} online`, `${game.category.toLowerCase()} games`],

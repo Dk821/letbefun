@@ -2,8 +2,9 @@
 // own title, meta tags, structured data and readable content, so search engines and
 // link-preview bots see real pages without running JavaScript. React replaces #root on load.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { ABOUT, PRIVACY } from '../src/data/content.js'
 import { GAMES } from '../src/data/games.meta.js'
-import { OG_IMAGE, OG_IMAGE_ALT, PAGES, SITE_NAME, gameSeo } from '../src/data/seo.js'
+import { HOME_H1, HOME_SUBHEADING, OG_IMAGE, OG_IMAGE_ALT, PAGES, SITE_NAME, gameSeo } from '../src/data/seo.js'
 
 const dist = new URL('../dist/', import.meta.url)
 const template = readFileSync(new URL('index.html', dist), 'utf8')
@@ -33,11 +34,6 @@ function head({ title, description, keywords, url, noindex, jsonLd }) {
     meta('property', 'og:image:height', '630'),
     meta('property', 'og:image:type', 'image/png'),
     meta('property', 'og:image:alt', OG_IMAGE_ALT),
-    meta('name', 'twitter:card', 'summary_large_image'),
-    meta('name', 'twitter:title', title),
-    meta('name', 'twitter:description', description),
-    meta('name', 'twitter:image', OG_IMAGE),
-    meta('name', 'twitter:image:alt', OG_IMAGE_ALT),
     jsonLd && `<script type="application/ld+json" id="ld-json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>`,
   ].filter(Boolean).join('\n    ')
 }
@@ -50,6 +46,14 @@ ${content}
 <nav aria-label="Site">${[['/', 'Home'], ['/explore', 'All games'], ['/about', 'About'], ['/privacy', 'Privacy']].map(([h, t]) => link(h, t)).join(' · ')}</nav>
 </div>`
 
+const paragraphs = (texts) => texts.map((t) => `<p>${esc(t)}</p>`).join('')
+const rich = ({ lead, text }) => `${lead ? `<strong>${esc(lead)}</strong> ` : ''}${esc(text)}`
+const privacyHtml = PRIVACY.map((b) => {
+  if (b.heading) return `<h2 id="${b.id}">${esc(b.heading)}</h2>`
+  if (b.list) return `<ul>${b.list.map((i) => `<li>${rich(i)}</li>`).join('')}</ul>`
+  return `<p>${rich(b)}</p>`
+}).join('')
+
 function write(file, seo, body) {
   const target = new URL(file, dist)
   mkdirSync(new URL('./', target), { recursive: true })
@@ -57,9 +61,11 @@ function write(file, seo, body) {
   writeFileSync(target, template.replace(SEO_BLOCK, () => head(seo)).replace(ROOT, () => `<div id="root">${body}</div>`))
 }
 
-write('index.html', PAGES.home, shell('Tiny games for idle minutes', `<p>${esc(PAGES.home.description)}</p>${gameLinks(GAMES)}`))
+write('index.html', PAGES.home, shell(Object.values(HOME_H1).join(''), `<p>${esc(HOME_SUBHEADING)}</p>${gameLinks(GAMES)}`))
 write('explore/index.html', PAGES.explore, shell('All games', `<p>${esc(PAGES.explore.description)}</p>${gameLinks(GAMES)}`))
-for (const [key, heading] of [['about', 'About letbe.fun'], ['privacy', 'Privacy'], ['favorites', 'Favorites'], ['recent', 'Recently played'], ['settings', 'Settings']]) {
+write('about/index.html', PAGES.about, shell('About letbe.fun', paragraphs(ABOUT)))
+write('privacy/index.html', PAGES.privacy, shell('Privacy', privacyHtml))
+for (const [key, heading] of [['favorites', 'Favorites'], ['recent', 'Recently played'], ['settings', 'Settings']]) {
   write(`${key}/index.html`, PAGES[key], shell(heading, `<p>${esc(PAGES[key].description)}</p>`))
 }
 for (const g of GAMES) {
