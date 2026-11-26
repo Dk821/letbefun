@@ -1,3 +1,4 @@
+import { FOOTER_LINKS } from '../data/content.js'
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Moon, Sun, Settings } from 'lucide-react'
@@ -66,12 +67,12 @@ export default function MainLayout() {
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
             <p>letbe<span className="brand-fun">.fun</span> — made with curiosity. Everything stays in your browser.</p>
-            <p>Made by <a href="https://madgen.space" target="_blank" rel="noopener noreferrer" className="hover:text-ink">madgen.space</a> · <a href="https://madgen.space" target="_blank" rel="noopener noreferrer" className="hover:text-ink">Contact</a></p>
+            <p>Made by <a href="https://madgen.space" target="_blank" rel="noopener noreferrer" className="hover:text-ink">madgen.space</a></p>
           </div>
-          <nav aria-label="Footer" className="flex gap-4">
-            <Link to="/about" className="hover:text-ink">About</Link>
-            <Link to="/privacy" className="hover:text-ink">Privacy</Link>
-            {/* TODO: Add Terms link only if a Terms page exists. */}
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-4 gap-y-2">
+            {FOOTER_LINKS.map(([to, label]) => (
+              <Link key={to} to={to} className="hover:text-ink">{label}</Link>
+            ))}
             <Link to="/settings" className="hover:text-ink">Settings</Link>
           </nav>
         </div>

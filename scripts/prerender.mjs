@@ -2,7 +2,7 @@
 // own title, meta tags, structured data and readable content, so search engines and
 // link-preview bots see real pages without running JavaScript. React replaces #root on load.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { ABOUT, PRIVACY } from '../src/data/content.js'
+import { ABOUT, CONTACT, DISCLAIMER, FOOTER_LINKS, PRIVACY, TERMS } from '../src/data/content.js'
 import { GAMES } from '../src/data/games.meta.js'
 import { HOME_H1, HOME_SUBHEADING, OG_IMAGE, OG_IMAGE_ALT, PAGES, SITE_NAME, gameSeo } from '../src/data/seo.js'
 
@@ -43,12 +43,12 @@ const gameLinks = (games) => `<ul>${games.map((g) => `<li>${link(`/games/${g.slu
 const shell = (heading, content) => `<div class="mx-auto max-w-3xl px-4 py-10">
 <h1 class="text-4xl font-extrabold">${esc(heading)}</h1>
 ${content}
-<nav aria-label="Site">${[['/', 'Home'], ['/explore', 'All games'], ['/about', 'About'], ['/privacy', 'Privacy']].map(([h, t]) => link(h, t)).join(' · ')}</nav>
+<nav aria-label="Site">${[['/', 'Home'], ['/explore', 'All games'], ...FOOTER_LINKS].map(([h, t]) => link(h, t)).join(' · ')}</nav>
 </div>`
 
 const paragraphs = (texts) => texts.map((t) => `<p>${esc(t)}</p>`).join('')
-const rich = ({ lead, text }) => `${lead ? `<strong>${esc(lead)}</strong> ` : ''}${esc(text)}`
-const privacyHtml = PRIVACY.map((b) => {
+const rich = ({ lead, text, link: l }) => `${lead ? `<strong>${esc(lead)}</strong> ` : ''}${esc(text)}${l ? ` ${link(l.href, l.label)}` : ''}`
+const blocksHtml = (blocks) => blocks.map((b) => {
   if (b.heading) return `<h2 id="${b.id}">${esc(b.heading)}</h2>`
   if (b.list) return `<ul>${b.list.map((i) => `<li>${rich(i)}</li>`).join('')}</ul>`
   return `<p>${rich(b)}</p>`
@@ -63,8 +63,10 @@ function write(file, seo, body) {
 
 write('index.html', PAGES.home, shell(Object.values(HOME_H1).join(''), `<p>${esc(HOME_SUBHEADING)}</p>${gameLinks(GAMES)}`))
 write('explore/index.html', PAGES.explore, shell('All games', `<p>${esc(PAGES.explore.description)}</p>${gameLinks(GAMES)}`))
-write('about/index.html', PAGES.about, shell('About letbe.fun', paragraphs(ABOUT)))
-write('privacy/index.html', PAGES.privacy, shell('Privacy', privacyHtml))
+write('about/index.html', PAGES.about, shell('About Us', paragraphs(ABOUT)))
+for (const [key, heading, blocks] of [['privacy', 'Privacy Policy', PRIVACY], ['contact', 'Contact Us', CONTACT], ['terms', 'Terms and Conditions', TERMS], ['disclaimer', 'Disclaimer', DISCLAIMER]]) {
+  write(`${key}/index.html`, PAGES[key], shell(heading, blocksHtml(blocks)))
+}
 for (const [key, heading] of [['favorites', 'Favorites'], ['recent', 'Recently played'], ['settings', 'Settings']]) {
   write(`${key}/index.html`, PAGES[key], shell(heading, `<p>${esc(PAGES[key].description)}</p>`))
 }
@@ -81,4 +83,4 @@ for (const g of GAMES) {
 // Served by Vercel with a real 404 status for any unknown URL; the app then renders NotFound.
 write('404.html', PAGES.notFound, shell('Page not found', '<p>This page wandered off.</p>'))
 
-console.log(`prerendered ${GAMES.length + 8} HTML pages`)
+console.log(`prerendered ${GAMES.length + 11} HTML pages`)

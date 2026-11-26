@@ -10,6 +10,9 @@ const Collection = lazy(() => import('./pages/Collection.jsx'))
 const Settings = lazy(() => import('./pages/Settings.jsx'))
 const About = lazy(() => import('./pages/About.jsx'))
 const Privacy = lazy(() => import('./pages/Privacy.jsx'))
+const Contact = lazy(() => import('./pages/Contact.jsx'))
+const Terms = lazy(() => import('./pages/Terms.jsx'))
+const Disclaimer = lazy(() => import('./pages/Disclaimer.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound.jsx'))
 
 export default function App() {
@@ -26,6 +29,9 @@ export default function App() {
             <Route path="settings" element={<Settings />} />
             <Route path="about" element={<About />} />
             <Route path="privacy" element={<Privacy />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="terms" element={<Terms />} />
+            <Route path="disclaimer" element={<Disclaimer />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
