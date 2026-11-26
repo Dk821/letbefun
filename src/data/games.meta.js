@@ -212,6 +212,20 @@ export const GAMES = [
     minutes: 1, added: '2026-11-23', featured: false,
     instructions: ['Choose a die type and how many dice to roll.', 'Press Roll or Flip.', 'Your recent results are listed below.'],
   },
+  {
+    slug: 'space-impact', folder: 'SpaceImpact', title: 'Space Impact', emoji: '🚀', color: '#22d3ee', category: 'Arcade',
+    tagline: 'Defend the galaxy, one shot at a time.',
+    description: 'Pilot your spaceship, destroy enemy fleets, dodge asteroids and survive an endless cosmic battle.',
+    minutes: 5, added: '2026-11-27', featured: true,
+    instructions: [
+      'Pick a difficulty, then press Play or Enter.',
+      'Move with the arrow keys or WASD, or use the joystick on touch screens.',
+      'Hold Space or the Fire button to shoot.',
+      'Avoid enemy fire, asteroids, mines and energy gates (fly through the gap).',
+      'Collect power-ups for health, weapon upgrades, shields, rapid fire and double score.',
+      'Press Escape or the Pause button to pause.',
+    ],
+  },
 ]
 
 export const getMeta = (slug) => GAMES.find((g) => g.slug === slug)

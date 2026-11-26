@@ -46,6 +46,7 @@ const GAME_TITLES = {
   'flappy-bird': 'Flappy Bird: Play Free in Your Browser',
   'tower-of-hanoi': 'Tower of Hanoi: Play the Puzzle Online',
   'dice-and-coin': 'Online Dice Roller and Coin Flip',
+  'space-impact': 'Space Impact: Free Retro Space Shooter Game',
 }
 
 // Shorter search descriptions where tagline + description would run long.
@@ -53,6 +54,12 @@ const GAME_DESCRIPTIONS = {
   'password-challenge': 'A password field with increasingly unreasonable rules. Type a password that satisfies every rule. Nothing you type ever leaves your device.',
   'trolley-dilemma': 'Twelve fictional moral dilemmas. Pick a side, then see what your choices say about your leanings. Choices are saved only on this device.',
   'asteroid-impact': 'Pick a rock, a speed and a target. See the aftermath in an educational impact calculator with a 3D globe. Results are rough estimates.',
+  'space-impact': 'Play a free retro space shooter in your browser. Blast enemy fleets, beat bosses and dodge asteroids on desktop or mobile. No download needed.',
+}
+
+// Extra search keywords for individual games.
+const GAME_KEYWORDS = {
+  'space-impact': ['space shooter game', 'retro arcade shooter', 'side scrolling shooter', 'spaceship game'],
 }
 
 const BASE_KEYWORDS = ['free online games', 'browser games', 'no download games', 'letbe.fun']
@@ -112,7 +119,7 @@ export function gameSeo(game) {
   const description = GAME_DESCRIPTIONS[game.slug] || `${game.tagline} ${game.description}`
   return page({
     path,
-    keywords: [game.title.toLowerCase(), `${game.title.toLowerCase()} online`, `${game.category.toLowerCase()} games`],
+    keywords: [game.title.toLowerCase(), `${game.title.toLowerCase()} online`, `${game.category.toLowerCase()} games`, ...(GAME_KEYWORDS[game.slug] || [])],
     title: `${GAME_TITLES[game.slug] || game.title} | letbe.fun`,
     description,
     jsonLd: [
