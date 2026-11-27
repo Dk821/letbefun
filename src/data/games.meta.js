@@ -75,9 +75,9 @@ export const GAMES = [
   {
     slug: 'color-guess', folder: 'ColorGuessing', title: 'Color Guess', emoji: '🎨', color: '#ec4899', category: 'Puzzle',
     tagline: 'Match colors to their RGB and HEX codes.',
-    description: 'Ten rounds of guessing: see a color and pick its code, or see a code and pick its color.',
+    description: 'Ten rounds of guessing: see a color and pick its code, or see a code and pick its color. Choose 4, 6 or 8 options.',
     minutes: 3, added: '2026-11-05', featured: true,
-    instructions: ['Pick a mode: guess the code, or guess the color.', 'Answer 10 rounds.', 'Higher difficulty means closer look-alike options.'],
+    instructions: ['Pick a mode: guess the code, or guess the color.', 'Choose 4, 6 or 8 options per round, then answer 10 rounds.', 'Higher difficulty means closer look-alike options.'],
   },
   {
     slug: 'number-guess', folder: 'NumberGuessing', title: 'Number Hunt', emoji: '🔢', color: '#0d9488', category: 'Puzzle',

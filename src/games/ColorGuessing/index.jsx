@@ -7,14 +7,22 @@ const hex = (c) => '#' + c.map((x) => x.toString(16).padStart(2, '0')).join('').
 const rgb = (c) => `rgb(${c[0]}, ${c[1]}, ${c[2]})`
 const rnd = () => Math.floor(Math.random() * 256)
 const clamp = (n) => Math.max(0, Math.min(255, n))
-const DIFF = { easy: 90, medium: 50, hard: 22 }
+const DIFF = { easy: 90, medium: 50, hard: 22, expert: 10 }
+const CHOICES = [4, 6, 8]
+const CHOICE_COLS = { 4: 'sm:grid-cols-2', 6: 'sm:grid-cols-3', 8: 'sm:grid-cols-4' }
 
-function makeRound(spread) {
+function makeRound(spread, count) {
   const c = [rnd(), rnd(), rnd()]
   const options = [c]
-  while (options.length < 4) {
+  let tries = 0
+  while (options.length < count && tries < 400) {
     const d = c.map((x) => clamp(x + Math.round((Math.random() * 2 - 1) * spread)))
     if (hex(d) !== hex(c) && !options.some((o) => hex(o) === hex(d))) options.push(d)
+    tries++
+  }
+  while (options.length < count) {
+    const d = [rnd(), rnd(), rnd()]
+    if (!options.some((o) => hex(o) === hex(d))) options.push(d)
   }
   return { answer: c, options: options.sort(() => Math.random() - 0.5) }
 }
@@ -22,6 +30,7 @@ function makeRound(spread) {
 export default function ColorGuessing() {
   const [mode, setMode] = useState('code') // code: see color, pick code; color: see code, pick color
   const [diff, setDiff] = useState('medium')
+  const [choiceCount, setChoiceCount] = useState(6)
   const [fmt, setFmt] = useState('hex')
   const [state, setState] = useState(null) // { i, score, streak, picked }
   const [round, setRound] = useState(null)
@@ -30,7 +39,7 @@ export default function ColorGuessing() {
 
   const fmtFn = fmt === 'hex' ? hex : rgb
   const start = () => {
-    setRound(makeRound(DIFF[diff]))
+    setRound(makeRound(DIFF[diff], choiceCount))
     setState({ i: 0, score: 0, streak: 0, picked: null })
   }
 
@@ -46,7 +55,7 @@ export default function ColorGuessing() {
       submitBest(state.score)
       return setState((s) => ({ ...s, i: ROUNDS }))
     }
-    setRound(makeRound(DIFF[diff]))
+    setRound(makeRound(DIFF[diff], choiceCount))
     setState((s) => ({ ...s, i: s.i + 1, picked: null }))
   }
 
@@ -70,8 +79,14 @@ export default function ColorGuessing() {
           </div>
         </fieldset>
         <fieldset>
+          <legend className="mb-2 font-semibold">Choices per round</legend>
+          <div className="flex flex-wrap gap-2">
+            {CHOICES.map((n) => <button key={n} className="chip" aria-pressed={choiceCount === n} onClick={() => setChoiceCount(n)}>{n} options</button>)}
+          </div>
+        </fieldset>
+        <fieldset>
           <legend className="mb-2 font-semibold">Difficulty</legend>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {Object.keys(DIFF).map((d) => <button key={d} className="chip capitalize" aria-pressed={diff === d} onClick={() => setDiff(d)}>{d}</button>)}
           </div>
         </fieldset>
@@ -109,7 +124,7 @@ export default function ColorGuessing() {
       >
         {mode === 'color' && <span className="font-mono text-3xl font-medium">{fmtFn(a)}</span>}
       </div>
-      <div className="mt-4 grid grid-cols-2 gap-3">
+      <div className={`mt-4 grid grid-cols-2 gap-3 ${CHOICE_COLS[choiceCount]}`}>
         {options.map((o) => {
           const right = hex(o) === hex(a)
           const chosen = state.picked && hex(state.picked) === hex(o)
