@@ -1,7 +1,7 @@
 import { FOOTER_LINKS } from '../data/content.js'
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Moon, Sun, Settings } from 'lucide-react'
+import { ArrowUp, Moon, Sun, Settings } from 'lucide-react'
 import { MotionConfig } from 'framer-motion'
 import { themeStore, useStore } from '../services/storage/index.js'
 
@@ -63,18 +63,29 @@ export default function MainLayout() {
       <main id="main" className="mx-auto min-h-[70vh] max-w-6xl px-4 pb-10">
         <Outlet />
       </main>
-      <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-1">
-            <p>letbe<span className="brand-fun">.fun</span> — made with curiosity. Everything stays in your browser.</p>
-            <p>Made by <a href="https://madgen.space" target="_blank" rel="noopener noreferrer" className="hover:text-ink">madgen.space</a></p>
-          </div>
-          <nav aria-label="Footer" className="flex flex-wrap gap-x-4 gap-y-2">
+      <footer className="relative mt-6 overflow-hidden border-t border-line bg-card/40">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(50%_100%_at_50%_0%,color-mix(in_srgb,var(--violet)_12%,transparent),transparent_70%)]" />
+        <div className="relative mx-auto max-w-3xl px-4 py-12 text-center">
+          <Link to="/" className="inline-flex items-center justify-center gap-2 font-display text-2xl font-black tracking-tight" aria-label="letbe.fun home">
+            <img src="/favicon.png" alt="" width="44" height="42" className="h-9 w-auto" />
+            <span>letbe<span className="brand-fun">.fun</span></span>
+          </Link>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
+            Small games for curious minds. No sign-up, no downloads — just open a tab and play.
+          </p>
+          <nav aria-label="Footer" className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm">
             {FOOTER_LINKS.map(([to, label]) => (
-              <Link key={to} to={to} className="hover:text-ink">{label}</Link>
+              <Link key={to} to={to} className="text-muted transition-colors hover:text-ink hover:underline underline-offset-4">{label}</Link>
             ))}
-            <Link to="/settings" className="hover:text-ink">Settings</Link>
+            <Link to="/settings" className="text-muted transition-colors hover:text-ink hover:underline underline-offset-4">Settings</Link>
           </nav>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-line pt-6 text-xs text-muted">
+            <p>© {new Date().getFullYear()} letbe.fun — made with curiosity.</p>
+            <a href="https://madgen.space" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ink">Made by madgen.space</a>
+            <button type="button" onClick={() => window.scrollTo(0, 0)} className="inline-flex items-center gap-1.5 transition-colors hover:text-ink">
+              Back to top <ArrowUp size={14} aria-hidden />
+            </button>
+          </div>
         </div>
       </footer>
     </MotionConfig>
