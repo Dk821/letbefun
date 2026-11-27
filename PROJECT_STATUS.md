@@ -77,7 +77,6 @@ Location: `src/services/storage/`
 | Deep Sea deepest depth | LocalStorage | `dbx:game:deep-sea:deepest` |
 | Discovered elements | IndexedDB | collection `craft-discovered` |
 | Custom crafting recipes | IndexedDB | collection `craft-recipes` |
-| Saved decision lists | IndexedDB | collection `decision-lists` |
 
 Nothing sensitive is stored. Passwords typed in the Password Gauntlet are never saved.
 

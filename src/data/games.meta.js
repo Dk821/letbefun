@@ -101,11 +101,11 @@ export const GAMES = [
     instructions: ['Click the text area and start typing — the timer starts with your first key.', 'Correct characters turn green, mistakes turn red.', 'WPM counts 5 characters as one word.'],
   },
   {
-    slug: 'decision-maker', folder: 'DecisionMaker', title: 'Decision Spinner', emoji: '🎲', color: '#84cc16', category: 'Tools',
+    slug: 'decision-maker', folder: 'DecisionMaker', title: 'Decision Spinner', emoji: '🎯', color: '#84cc16', category: 'Tools',
     tagline: 'Cannot decide? Let chance choose.',
-    description: 'Enter your options, spin, and get a random pick. Save your lists locally.',
+    description: 'Enter your options, spin the wheel, and get a random pick with no-repeat mode and pick counts.',
     minutes: 1, added: '2026-11-01', featured: true,
-    instructions: ['Add at least two options.', 'Press Spin to let randomness decide.', 'Save a list to reuse it later — it stays on this device.'],
+    instructions: ['Add at least two options.', 'Press Spin to let randomness decide.', 'Turn on No-repeat for a fresh pick each spin; counts appear on every option.', 'Remove any option with the × on its chip.'],
   },
   {
     slug: 'snake', folder: 'Snake', title: 'Snake', emoji: '🐍', color: '#22c55e', category: 'Arcade',

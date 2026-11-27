@@ -21,7 +21,7 @@ export const PRIVACY = [
   {
     list: [
       { lead: 'LocalStorage:', text: 'theme, sound preference, favorites, recently played games, best scores and small game progress.' },
-      { lead: 'IndexedDB:', text: 'larger items such as discovered elements, custom recipes and your saved decision lists.' },
+      { lead: 'IndexedDB:', text: 'larger items such as discovered elements and custom recipes.' },
       { text: 'Passwords typed into the Password Gauntlet are never stored or transmitted. Do not reuse real passwords anywhere in games.' },
     ],
   },

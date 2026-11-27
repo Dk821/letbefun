@@ -217,7 +217,6 @@ Database `doodlebox` (version 1), object store `items`, keys formatted as `<coll
 | --- | --- |
 | `craft-discovered` | Element Alchemy discoveries |
 | `craft-recipes` | Element Alchemy custom recipes |
-| `decision-lists` | Decision Spinner saved lists |
 
 Settings can export LocalStorage as JSON (IndexedDB is not included) and reset all data in both.
 
