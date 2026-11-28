@@ -18,7 +18,7 @@ Production domain: `https://www.letbe.fun` (made by madgen.space).
 | Animation | Framer Motion |
 | 3D | Three.js (asteroid game only) |
 | Icons | Lucide React |
-| Analytics | Google Tag Manager (`GTM-WH3CJ86T`), Vercel Web Analytics |
+| Analytics | Google Tag Manager (`GTM-PMBRK3CS`), Vercel Web Analytics |
 | Hosting | Vercel |
 
 ```bash
