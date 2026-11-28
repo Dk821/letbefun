@@ -110,9 +110,15 @@ export const GAMES = [
   {
     slug: 'snake', folder: 'Snake', title: 'Snake', emoji: '🐍', color: '#22c55e', category: 'Arcade',
     tagline: 'Eat, grow, and do not bite yourself.',
-    description: 'The classic snake game on a tidy grid. Grab food, grow longer and speed up.',
+    description: 'The classic snake game with your own rules. Choose speed, board size and walls, then grab food and grow.',
     minutes: 3, added: '2026-11-16', featured: false,
-    instructions: ['Press an arrow key (or WASD) to start moving.', 'Eat the red food to grow and score.', 'Do not hit the walls or your own tail.'],
+    instructions: [
+      'Choose speed, board size and walls, then press Play.',
+      'Move with the arrow keys or WASD. On touch screens, swipe the board or use the arrow buttons.',
+      'Eat apples to grow and score. Gold stars are worth 3 points but disappear after a few seconds.',
+      'Do not hit your own tail. With solid walls, do not hit the edges either.',
+      'Press Space or P to pause.',
+    ],
   },
   {
     slug: 'game-2048', folder: 'Game2048', title: '2048', emoji: '🔢', color: '#f59e0b', category: 'Puzzle',

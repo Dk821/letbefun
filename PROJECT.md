@@ -191,7 +191,8 @@ All player data stays in the visitor's browser.
 
 | Game slug | Names |
 | --- | --- |
-| `snake`, `game-2048`, `flappy-bird`, `whack-a-mole`, `simon-says`, `higher-lower`, `color-guess`, `perfect-circle` | `best` |
+| `snake` | `best` (default settings), `best-<speed>-<size>-<walls>`, `options` |
+| `game-2048`, `flappy-bird`, `whack-a-mole`, `simon-says`, `higher-lower`, `color-guess`, `perfect-circle` | `best` |
 | `minesweeper`, `aim-trainer` | `best` (lower is better) |
 | `click-speed` | `best<duration>` |
 | `sliding-puzzle` | `best<size>` |
