@@ -1,8 +1,8 @@
 # letbe.fun: Project Architecture and Data
 
-_Last updated: 2026-11-27_
+_Last updated: 2026-11-28_
 
-A static, frontend-only site with 31 browser mini-games. No backend, no accounts, no environment variables.
+A static, frontend-only site with 32 browser mini-games. No backend, no accounts, no environment variables.
 Production domain: `https://www.letbe.fun` (made by madgen.space).
 
 ---
@@ -63,7 +63,7 @@ Game component ─> hooks ─> services/storage ─> LocalStorage / IndexedDB
 | --- | --- | --- |
 | `prebuild` | `node scripts/gen-sitemap.mjs` | Writes `public/sitemap.xml` and `public/robots.txt` |
 | `build` | `vite build` | Bundles the app into `dist/` |
-| `postbuild` | `node scripts/prerender.mjs` | Writes one HTML file per route, plus `404.html` (42 pages) |
+| `postbuild` | `node scripts/prerender.mjs` | Writes one HTML file per route, plus `404.html` (43 pages) |
 
 ---
 
@@ -163,6 +163,9 @@ Each entry has `path`, `title`, `description`, `keywords`, `noindex`, `url` and 
 | `games/SpaceImpact/data/` | Modes, difficulties, enemy and boss types, weapons |
 | `games/SpaceImpact/engine/` | Canvas game engine (no React), drawing and synthesized audio |
 | `games/SpaceImpact/components/` | Canvas, HUD, touch controls and screens |
+| `games/BrickBreaker/data/` | Difficulties, 10 levels, Endless row generator, power-up types |
+| `games/BrickBreaker/engine/` | Canvas game engine (no React), physics, collisions, drawing and synthesized audio |
+| `games/BrickBreaker/components/` | Canvas, HUD, touch controls and screens |
 
 ---
 
@@ -206,6 +209,7 @@ All player data stays in the visitor's browser.
 | `spend-the-fortune` | `qty` |
 | `money-clicker` | `save` |
 | `space-impact` | `bests`, `stats` (played, destroyed, bestTime, bosses), `difficulty` |
+| `brick-breaker` | `bests` (per mode), `stats` (played, highestLevel, bricks, powerups, time), `difficulty`, `control` |
 
 `asteroid-impact` and `dice-and-coin` save no game data.
 

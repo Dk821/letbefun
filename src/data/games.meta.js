@@ -226,6 +226,20 @@ export const GAMES = [
       'Press Escape or the Pause button to pause.',
     ],
   },
+  {
+    slug: 'brick-breaker', folder: 'BrickBreaker', title: 'Brick Breaker', emoji: '🧱', color: '#8b5cf6', category: 'Arcade',
+    tagline: 'Break every brick. Keep the ball alive.',
+    description: 'Play the ultimate brick-breaking arcade challenge. Destroy colorful bricks, collect power-ups and conquer challenging levels.',
+    minutes: 5, added: '2026-11-28', featured: false,
+    instructions: [
+      'Pick a difficulty, then press Play to take on all 10 levels.',
+      'Move the paddle with the mouse, the arrow keys or A and D, or drag on touch screens.',
+      'Press Space, click or tap to launch the ball. Where it lands on the paddle sets its angle.',
+      'Break every brick except the steel ones. Golden bricks score most and explosive bricks damage their neighbours.',
+      'Catch falling power-ups. With the laser, hold Space, the mouse button or Fire to shoot.',
+      'Press Escape or the Pause button to pause.',
+    ],
+  },
 ]
 
 export const getMeta = (slug) => GAMES.find((g) => g.slug === slug)
