@@ -128,7 +128,7 @@ export const GAMES = [
     instructions: ['Use arrow keys / WASD, or swipe, to slide every tile.', 'Two equal tiles merge into one.', 'Reach 2048 — then keep going for a high score.'],
   },
   {
-    slug: 'minesweeper', folder: 'Minesweeper', title: 'Minesweeper', emoji: '💣', color: '#64748b', category: 'Puzzle',
+    slug: 'minesweeper', folder: 'Minesweeper', title: 'Minesweeper', emoji: '💣', color: '#64748b', startColor: '#22c55e', category: 'Puzzle',
     tagline: 'Clear the field without touching a mine.',
     description: 'A compact 9×9 minesweeper with safe first clicks, flags and a best-time record.',
     minutes: 5, added: '2026-11-17', featured: false,

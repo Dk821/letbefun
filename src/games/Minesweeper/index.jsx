@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Flag } from 'lucide-react'
 import { Stat } from '../../components/ui.jsx'
 import { useBestScore, useInterval, useSound } from '../../hooks/index.js'
+import ResultPopup from './ResultPopup.jsx'
 
 const W = 9, H = 9, M = 10
 const COLORS = ['', '#2563eb', '#16a34a', '#dc2626', '#7c3aed', '#b45309', '#0891b2', '#111827', '#6b7280']
@@ -36,11 +37,20 @@ export default function Minesweeper() {
   const [flagMode, setFlagMode] = useState(false)
   const [time, setTime] = useState(0)
   const [best, submit] = useBestScore('minesweeper', 'best', 'low')
+  const [popup, setPopup] = useState(false)
+  const [record, setRecord] = useState(false)
   const play = useSound()
 
   useInterval(() => setTime((t) => t + 1), 1000, planted && status === 'play')
 
-  const reset = () => { setCells(blank()); setPlanted(false); setStatus('play'); setTime(0) }
+  // A short pause lets the player see the final board before the popup covers it.
+  useEffect(() => {
+    if (status === 'play') return undefined
+    const id = setTimeout(() => setPopup(true), 700)
+    return () => clearTimeout(id)
+  }, [status])
+
+  const reset = () => { setCells(blank()); setPlanted(false); setStatus('play'); setTime(0); setPopup(false); setRecord(false) }
   const flagsLeft = M - cells.filter((c) => c.flag).length
 
   const toggleFlag = (i) => {
@@ -69,6 +79,7 @@ export default function Minesweeper() {
     setCells(c)
     if (c.every((x) => x.mine || x.open)) {
       setStatus('won')
+      setRecord(best == null || time < best)
       submit(time)
       play('win')
     } else play('pop')
@@ -105,6 +116,7 @@ export default function Minesweeper() {
         {status === 'won' ? '🎉 Cleared!' : status === 'lost' ? '💥 Boom!' : ''}
       </p>
       <p className="mt-1 text-sm text-muted">Right-click (or use Flag mode) to mark mines. Your first click is always safe.</p>
+      {popup && <ResultPopup won={status === 'won'} record={record} time={time} best={best} onRestart={reset} onClose={() => setPopup(false)} />}
     </div>
   )
 }

@@ -131,6 +131,7 @@ The main source for the game list. `CATEGORIES`: Creative, Puzzle, Simulation, T
 | `folder` | Directory under `src/games/` |
 | `title`, `tagline`, `description` | Display and SEO text |
 | `emoji`, `color` | Card and game page styling |
+| `startColor` | Optional: highlights the game page Start button in this colour |
 | `category` | One of `CATEGORIES` |
 | `minutes` | Estimated play time, used by the "Shortest" sort |
 | `added` | `YYYY-MM-DD`, used by the "Newest" sort and sitemap `lastmod` |

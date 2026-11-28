@@ -80,7 +80,12 @@ function GameView({ meta }) {
                 <li key={t}>{t}</li>
               ))}
             </ol>
-            <button className="btn btn-primary mt-6" onClick={startGame} autoFocus>
+            <button
+              className={`btn btn-primary mt-6 ${meta.startColor ? 'btn-highlight !px-8 !py-3 !text-base font-bold' : ''}`}
+              style={meta.startColor ? { '--game': meta.startColor } : undefined}
+              onClick={startGame}
+              autoFocus
+            >
               <Play size={16} aria-hidden /> Start
             </button>
           </div>
